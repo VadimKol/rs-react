@@ -1,7 +1,16 @@
 module.exports = {
   root: true,
   env: { browser: true, es2022: true, jest: true },
-  plugins: ['@typescript-eslint', 'simple-import-sort', 'import', 'react', 'react-refresh', 'react-hooks', 'prettier'],
+  plugins: [
+    '@typescript-eslint',
+    'simple-import-sort',
+    'import',
+    'react',
+    'react-refresh',
+    'react-hooks',
+    'prettier',
+    'react-compiler',
+  ],
   extends: [
     'airbnb',
     'airbnb-typescript',
@@ -23,6 +32,8 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    'react-compiler/react-compiler': 'error',
+    'react-hooks/rules-of-hooks': 'error',
     'no-void': 'error',
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
