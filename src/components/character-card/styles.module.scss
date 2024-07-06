@@ -4,10 +4,9 @@
   flex-direction: column;
   height: 100%;
   text-decoration: none;
-  color: var(--primary-color);
   background:
     linear-gradient(var(--background-color) 0 0) padding-box,
-    linear-gradient(to top, #00b5cc, #b2df28) border-box;
+    linear-gradient(to top, var(--primary-color), var(--secondary-color)) border-box;
   border: 5px solid transparent;
   border-radius: 10px;
   transform-style: preserve-3d;
@@ -16,7 +15,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, #00b5cc, #b2df28);
+    background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
     border-radius: inherit;
     filter: blur(0);
     pointer-events: none;
@@ -64,7 +63,7 @@
   font-size: 18px;
   font-weight: 800;
   text-align: center;
-  color: #000000;
+  color: var(--text-color);
 }
 
 .card_description {
@@ -73,7 +72,7 @@
   margin: 0 auto;
   text-align: left;
   text-overflow: ellipsis;
-  color: #000000;
+  color: var(--text-color);
   transition: max-height 0.5s;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
