@@ -1,0 +1,35 @@
+.error {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: radial-gradient(circle at 50% 50%, #393838 0%, #000000 100%);
+}
+
+.error_img {
+  width: 500px;
+  height: 500px;
+  background-image: url("/src/assets/images/loader.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.desc,
+.name {
+  margin: 0;
+}
+
+.desc {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.name {
+  font-family: var(--secondary-font);
+  font-size: 4rem;
+  letter-spacing: 5px;
+  color: var(--secondary-color);
+}

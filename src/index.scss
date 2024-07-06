@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Creepster";
+  font-style: normal;
+  font-weight: 400;
+  src: url("@/assets/fonts/Creepster-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
 @mixin font($font_name, $file_name, $weight, $style) {
   @font-face {
     font-family: $font_name;
@@ -12,7 +20,6 @@
 
 @include font("Rubik", rubik-400, 400, normal);
 @include font("Rubik", rubik-700, 700, normal);
-@include font("Benguiat", benguiat-700, 700, normal);
 
 *,
 *::before,
@@ -29,7 +36,7 @@
   --disabled-color: #808080;
 
   --primary-font: "Rubik", "Arial", sans-serif;
-  --secondary-font: "Benguiat", "Georgia", sans-serif;
+  --secondary-font: "Creepster", system-ui;
 
   --min-width: 320px;
   --max-width: 1440px;

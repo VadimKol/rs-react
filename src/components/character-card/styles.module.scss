@@ -9,27 +9,6 @@
     linear-gradient(to top, var(--primary-color), var(--secondary-color)) border-box;
   border: 5px solid transparent;
   border-radius: 10px;
-  transform-style: preserve-3d;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
-    border-radius: inherit;
-    filter: blur(0);
-    pointer-events: none;
-    transition: all 0.5s;
-    transform: translate3d(0, 0, -1px);
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      &::before {
-        filter: blur(10px);
-      }
-    }
-  }
 }
 
 .image_container {

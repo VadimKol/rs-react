@@ -4,6 +4,7 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import { App } from './App';
+import { ErrorBoundary } from './components/error-boundary/ErrorBoundary';
 
 document.body.classList.add('body');
 
@@ -14,6 +15,8 @@ document.body.insertBefore(rootElement, document.body.firstChild);
 
 ReactDOM.createRoot(rootElement).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 );
