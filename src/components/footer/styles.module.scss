@@ -1,18 +1,16 @@
 .footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  background-image: linear-gradient(to top, var(--primary-color), #073283);
+  height: 160px;
+  background-image: linear-gradient(to top, #000000, #393838);
 }
 
 .container {
-  display: flex;
-  max-width: var(--max-width);
-  margin-inline: auto;
-  padding: 20px;
-}
-
-.footerItem {
-  margin: 0 auto;
-  font-size: 20px;
-  text-align: center;
-  color: var(--text-color);
+  width: 250px;
+  height: 90px;
+  margin: auto;
+  background-image: url("/src/assets/images/rss_white.png");
+  background-size: cover;
 }

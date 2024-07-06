@@ -1,0 +1,24 @@
+.characters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  &_not_found {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    background:
+      linear-gradient(var(--background-color) 0 0) padding-box,
+      linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+    border: 5px solid transparent;
+    border-radius: 10px;
+  }
+
+  @media screen and (width > 1166px) {
+    grid-template-columns: repeat(auto-fit, minmax(265px, 0.34fr));
+  }
+}
