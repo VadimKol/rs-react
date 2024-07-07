@@ -1,31 +1,15 @@
 import { Component, type ReactNode } from 'react';
 import { type Character } from 'rickmortyapi';
 
-import { Loader } from '../loader/Loader';
+import { ImageBlock } from '../image-block/ImageBlock';
 import styles from './styles.module.scss';
-import type { CharacterState } from './types';
 
-export class CharacterCard extends Component<{ character: Character }, CharacterState> {
-  constructor(props: { character: Character }) {
-    super(props);
-    this.state = { isImageLoading: true };
-  }
-
+export class CharacterCard extends Component<{ character: Character }> {
   public render(): ReactNode {
     const { character } = this.props;
-    const { isImageLoading } = this.state;
     return (
       <div className={styles.card}>
-        <div className={styles.image_container}>
-          {isImageLoading && <Loader />}
-          <img
-            className={styles.character_img}
-            src={character.image}
-            alt="Character"
-            onLoad={() => this.setState({ isImageLoading: false })}
-            style={{ display: isImageLoading ? 'none' : 'block' }}
-          />
-        </div>
+        <ImageBlock src={character.image} alt="Character" />
         <div className={styles.text_container}>
           <h2 className={styles.card_title}>{character.name}</h2>
           <p className={styles.card_description}>{character.species}</p>

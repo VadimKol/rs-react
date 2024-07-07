@@ -1,10 +1,5 @@
 .search_form {
-  display: flex;
-  justify-content: center;
-
-  & .search_box {
-    position: relative;
-  }
+  position: relative;
 
   & .search {
     box-sizing: border-box;

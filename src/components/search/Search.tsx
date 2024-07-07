@@ -20,17 +20,15 @@ export class Search extends Component<SearchProps> {
           }
         }}
       >
-        <div className={styles.search_box}>
-          <input
-            id="search"
-            className={styles.search}
-            type="text"
-            placeholder="Search..."
-            ref={searchField}
-            defaultValue={character.name}
-          />
-          <button type="submit" className={styles.search_button} aria-label="Search-button" />
-        </div>
+        <input
+          id="search"
+          className={styles.search}
+          type="text"
+          placeholder="Search..."
+          ref={searchField}
+          defaultValue={character.name}
+        />
+        <button type="submit" className={styles.search_button} aria-label="Search-button" />
       </form>
     );
   }

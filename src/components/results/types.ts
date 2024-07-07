@@ -7,7 +7,3 @@ export interface ResultsProps {
   setPage: (page: number) => void;
   setLoader: (loader: boolean) => void;
 }
-
-export interface ResultsState {
-  isImageLoading: boolean;
-}
