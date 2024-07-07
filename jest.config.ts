@@ -3,7 +3,7 @@ export default {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.tsx?$': [
-      'ts-jest', // process `*.tsx` files with `ts-jest`
+      'ts-jest',
       {
         diagnostics: {
           ignoreCodes: [1343],
@@ -15,7 +15,6 @@ export default {
               options: {
                 metaObjectReplacement: {
                   env: {
-                    // Replicate as .env
                     VITE_PROJECT_KEY: 'test',
                     VITE_CLIENT_ID: 'test',
                     VITE_CLIENT_SECRET: 'test',

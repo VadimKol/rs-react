@@ -1,24 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ES2022" /* Ignored by Vite bundler https://vitejs.dev/guide/features.html#target */,
+    "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "preserve",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "moduleDetection": "force" /* every non-declaration file is treated as a module */,
-    /* Bundler mode */
+    "moduleDetection": "force",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    /* Linting */
     "strict": true,
     "noImplicitAny": true,
-    "noUncheckedIndexedAccess": true /* forbids unsafe indexing of Records and arrays */,
-    /* Path aliases */
+    "noUncheckedIndexedAccess": true,
     "baseUrl": "",
     "paths": {
       "@/*": ["./src/*"]
