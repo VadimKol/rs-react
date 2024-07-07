@@ -1,0 +1,91 @@
+@font-face {
+  font-family: "Creepster";
+  font-style: normal;
+  font-weight: 400;
+  src: url("@/assets/fonts/Creepster-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@mixin font($font_name, $file_name, $weight, $style) {
+  @font-face {
+    font-family: $font_name;
+    font-style: $style;
+    font-weight: $weight;
+    src:
+      url("@/assets/fonts/#{$file_name}.woff2") format("woff2"),
+      url("@/assets/fonts/#{$file_name}.woff") format("woff");
+    font-display: swap;
+  }
+}
+
+@include font("Rubik", rubik-400, 400, normal);
+@include font("Rubik", rubik-700, 700, normal);
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #00b5cc;
+  --secondary-color: #b2df28;
+  --error-color: #c42323;
+  --text-color: #000000;
+  --background-color: #ffffff;
+  --disabled-color: #808080;
+
+  --primary-font: "Rubik", "Arial", sans-serif;
+  --secondary-font: "Creepster", system-ui;
+
+  --min-width: 320px;
+  --max-width: 1440px;
+}
+
+.body {
+  min-width: var(--min-width);
+  height: 100dvh;
+  margin: 0;
+  font-family: var(--primary-font);
+}
+
+.root {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  margin: 0 auto;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background: radial-gradient(circle at 50% 50%, #393838 0%, #000000 100%);
+  border-top: 2px solid var(--background-color);
+  border-bottom: 2px solid var(--background-color);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+  box-shadow: inset 0 0 10px #393838;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}
