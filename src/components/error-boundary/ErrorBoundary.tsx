@@ -1,27 +1,19 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 import styles from './styles.module.scss';
+import type { ErrorProps, ErrorState } from './types';
 
-interface Props {
-  children?: ReactNode;
-}
-
-interface State {
-  hasError: boolean;
-  error: Error | null;
-}
-
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
+  constructor(props: ErrorProps) {
     super(props);
     this.state = { hasError: false, error: null };
   }
 
-  public static getDerivedStateFromError(error: Error): State {
+  public static getDerivedStateFromError(error: Error): ErrorState {
     return { hasError: true, error };
   }
 
-  public componentDidCatch(_: unknown, info: ErrorInfo): void {
+  public componentDidCatch(_: Error, info: ErrorInfo): void {
     const c = console;
     c.error(info);
   }

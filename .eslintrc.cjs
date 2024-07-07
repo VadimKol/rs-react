@@ -34,6 +34,7 @@ module.exports = {
   rules: {
     'react-compiler/react-compiler': 'error',
     'react-hooks/rules-of-hooks': 'error',
+    'react/prefer-stateless-function': 'off',
     'no-void': 'error',
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',

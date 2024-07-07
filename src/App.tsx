@@ -1,14 +1,18 @@
+import { Component, type ReactNode } from 'react';
+
 import { Footer } from '@/components/footer/Footer.tsx';
 import { Header } from '@/components/header/Header.tsx';
 
 import { Main } from './components/main/Main';
 
-export function App(): JSX.Element {
-  return (
-    <>
-      <Header />
-      <Main />
-      <Footer />
-    </>
-  );
+export class App extends Component {
+  public render(): ReactNode {
+    return (
+      <>
+        <Header />
+        <Main />
+        <Footer />
+      </>
+    );
+  }
 }

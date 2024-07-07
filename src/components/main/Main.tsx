@@ -1,62 +1,104 @@
-import { useEffect, useRef, useState } from 'react';
+import { Component, createRef, type ReactNode } from 'react';
 import { type Character, getCharacters } from 'rickmortyapi';
 
 import { Results } from '../results/Results';
 import { Search } from '../search/Search';
 import styles from './styles.module.scss';
+import type { MainProps, MainState } from './types';
 
-export function Main(): JSX.Element {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
-  const [loader, setLoader] = useState(true);
-  const [character, setCharacter] = useState({ name: localStorage.getItem('R&M_search') || '' });
-  const searchField = useRef<HTMLInputElement>(null);
-  const [err, setErr] = useState('');
-
-  if (err) {
-    throw new Error(err);
+export class Main extends Component<MainProps, MainState> {
+  constructor(props: MainProps) {
+    super(props);
+    this.state = {
+      characters: [],
+      total: 0,
+      page: 1,
+      loader: true,
+      character: { name: localStorage.getItem('R&M_search') || '' },
+      err: '',
+      searchField: createRef(),
+    };
   }
 
-  useEffect(() => {
+  public componentDidMount(): void {
+    const { page, character } = this.state;
+    this.getData(page, character);
+  }
+
+  public componentDidUpdate(_: MainProps, prevState: MainState): void {
+    const { page, character } = this.state;
+    if (page !== prevState.page || character !== prevState.character) {
+      this.getData(page, character);
+    }
+  }
+
+  public getData = (page: number, character: { name: string }): void => {
     getCharacters({ page, name: character.name })
       .then((response) => {
         if (response.status === 200 && response.data.results) {
-          setCharacters(response.data.results);
-          setTotal(response.data.info?.pages || 0);
+          this.setCharacters(response.data.results);
+          this.setTotal(response.data.info?.pages || 0);
         } else if (response.status === 404) {
-          setCharacters([]);
-          setTotal(0);
+          this.setCharacters([]);
+          this.setTotal(0);
         } else {
           throw new Error(response.statusMessage);
         }
       })
-      .catch((error: Error) => setErr(error.message))
-      .finally(() => setLoader(false));
-  }, [page, character]);
+      .catch((error: Error) => this.setErr(error.message))
+      .finally(() => this.setLoader(false));
+  };
 
-  return (
-    <footer className="main">
-      <section className={styles.search}>
-        <Search
-          character={character}
-          setCharacter={setCharacter}
-          searchField={searchField}
-          setPage={setPage}
-          setLoader={setLoader}
-          loader={loader}
-        />
-        <button className={styles.error} type="button" onClick={() => setErr('Oops, something went wrong!')}>
-          Error
-        </button>
-      </section>
-      <section className={styles.results}>
-        {loader ? (
-          <div className={styles.loader} />
-        ) : (
-          <Results characters={characters} total={total} page={page} setPage={setPage} setLoader={setLoader} />
-        )}
-      </section>
-    </footer>
-  );
+  public setPage = (page: number): void => this.setState((prevState) => ({ ...prevState, page }));
+
+  public setLoader = (loader: boolean): void => this.setState((prevState) => ({ ...prevState, loader }));
+
+  public setTotal = (total: number): void => this.setState((prevState) => ({ ...prevState, total }));
+
+  public setCharacters = (characters: Character[]): void =>
+    this.setState((prevState) => ({ ...prevState, characters }));
+
+  public setCharacter = (character: { name: string }): void =>
+    this.setState((prevState) => ({ ...prevState, character }));
+
+  public setErr = (err: string): void => this.setState((prevState) => ({ ...prevState, err }));
+
+  public render(): ReactNode {
+    const { characters, total, page, loader, character, err, searchField } = this.state;
+
+    if (err) {
+      throw new Error(err);
+    }
+
+    return (
+      <footer className="main">
+        <section className={styles.search}>
+          <Search
+            character={character}
+            loader={loader}
+            searchField={searchField}
+            setCharacter={this.setCharacter}
+            setPage={this.setPage}
+            setLoader={this.setLoader}
+          />
+          <button className={styles.error} type="button" onClick={() => this.setErr('Oops, something went wrong!')}>
+            Error
+          </button>
+        </section>
+        <section className={styles.results}>
+          {loader ? (
+            <div className={styles.loader} />
+          ) : (
+            <Results
+              characters={characters}
+              total={total}
+              page={page}
+              setPage={this.setPage}
+              setLoader={this.setLoader}
+            />
+          )}
+        </section>
+      </footer>
+    );
+  }
 }
