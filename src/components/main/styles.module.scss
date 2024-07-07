@@ -9,6 +9,11 @@
   gap: 200px;
   align-items: center;
   margin-bottom: 20px;
+
+  @media screen and (width <= 768px) {
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
 }
 
 .error {

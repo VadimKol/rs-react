@@ -25,6 +25,10 @@
     &:focus-visible {
       outline: none;
     }
+
+    @media screen and (width <= 500px) {
+      width: 100%;
+    }
   }
 
   & .search_button {
