@@ -71,7 +71,7 @@ export class Main extends Component<MainProps, MainState> {
     }
 
     return (
-      <footer className="main">
+      <main className="main">
         <section className={styles.search}>
           <Search
             character={character}
@@ -98,7 +98,7 @@ export class Main extends Component<MainProps, MainState> {
             />
           )}
         </section>
-      </footer>
+      </main>
     );
   }
 }
