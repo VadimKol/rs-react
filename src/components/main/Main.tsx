@@ -12,10 +12,10 @@ export function Main(): JSX.Element {
   const [loader, setLoader] = useState(true);
   const [name, setName] = useState(localStorage.getItem('R&M_search') || '');
   const searchField = useRef<HTMLInputElement>(null);
-  const [err, setErr] = useState(false);
+  const [err, setErr] = useState('');
 
   if (err) {
-    throw new Error('Oops, something went wrong!');
+    throw new Error(err);
   }
 
   useEffect(() => {
@@ -31,9 +31,7 @@ export function Main(): JSX.Element {
           throw new Error(response.statusMessage);
         }
       })
-      .catch((error: unknown) => {
-        throw error;
-      })
+      .catch((error: Error) => setErr(error.message))
       .finally(() => setLoader(false));
   }, [page, name]);
 
@@ -41,7 +39,7 @@ export function Main(): JSX.Element {
     <footer className="main">
       <section className={styles.search}>
         <Search name={name} setName={setName} searchField={searchField} setPage={setPage} setLoader={setLoader} />
-        <button className={styles.error} type="button" onClick={() => setErr(true)}>
+        <button className={styles.error} type="button" onClick={() => setErr('Oops, something went wrong!')}>
           Error
         </button>
       </section>

@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 import styles from './styles.module.scss';
 
@@ -19,6 +19,11 @@ export class ErrorBoundary extends Component<Props, State> {
 
   public static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
+  }
+
+  public componentDidCatch(_: unknown, info: ErrorInfo): void {
+    const c = console;
+    c.error(info);
   }
 
   public render(): ReactNode {
