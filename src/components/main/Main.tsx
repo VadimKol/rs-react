@@ -10,7 +10,7 @@ export function Main(): JSX.Element {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loader, setLoader] = useState(true);
-  const [name, setName] = useState(localStorage.getItem('R&M_search') || '');
+  const [character, setCharacter] = useState({ name: localStorage.getItem('R&M_search') || '' });
   const searchField = useRef<HTMLInputElement>(null);
   const [err, setErr] = useState('');
 
@@ -19,7 +19,7 @@ export function Main(): JSX.Element {
   }
 
   useEffect(() => {
-    getCharacters({ page, name })
+    getCharacters({ page, name: character.name })
       .then((response) => {
         if (response.status === 200 && response.data.results) {
           setCharacters(response.data.results);
@@ -33,12 +33,19 @@ export function Main(): JSX.Element {
       })
       .catch((error: Error) => setErr(error.message))
       .finally(() => setLoader(false));
-  }, [page, name]);
+  }, [page, character]);
 
   return (
     <footer className="main">
       <section className={styles.search}>
-        <Search name={name} setName={setName} searchField={searchField} setPage={setPage} setLoader={setLoader} />
+        <Search
+          character={character}
+          setCharacter={setCharacter}
+          searchField={searchField}
+          setPage={setPage}
+          setLoader={setLoader}
+          loader={loader}
+        />
         <button className={styles.error} type="button" onClick={() => setErr('Oops, something went wrong!')}>
           Error
         </button>
