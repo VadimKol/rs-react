@@ -2,6 +2,8 @@ import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { type Character, getCharacters } from 'rickmortyapi';
 
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+
 import { NoMatch } from '../no-match/NoMatch';
 import { Results } from '../results/Results';
 import { Search } from '../search/Search';
@@ -13,7 +15,8 @@ export function Main(): ReactNode {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(Math.floor(Number(pageQuery.get('page'))) || 1);
   const [loader, setLoader] = useState(true);
-  const [character, setCharacter] = useState({ name: localStorage.getItem('R&M_search') || '' });
+  const [ls] = useLocalStorage('R&M_search');
+  const [character, setCharacter] = useState({ name: ls });
   const [err, setErr] = useState('');
   const [noMatch, setNoMatch] = useState(false);
   const searchField = useRef<HTMLInputElement>(null);
