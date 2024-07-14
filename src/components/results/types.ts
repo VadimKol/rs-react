@@ -6,4 +6,5 @@ export interface ResultsProps {
   page: number;
   setPage: (page: number) => void;
   setLoader: (loader: boolean) => void;
+  characterID: string;
 }

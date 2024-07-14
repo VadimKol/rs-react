@@ -3,7 +3,7 @@ import { type ReactNode } from 'react';
 import styles from './styles.module.scss';
 import { type PaginationProps } from './types';
 
-export function Pagination({ page, total, setPage, setLoader }: PaginationProps): ReactNode {
+export function Pagination({ page, total, setPage, setLoader, handleClose }: PaginationProps): ReactNode {
   let paginationStyles = styles.pagination_box;
   if (!(page - 1)) {
     paginationStyles = `${styles.pagination_box_before}`;
@@ -15,8 +15,8 @@ export function Pagination({ page, total, setPage, setLoader }: PaginationProps)
     paginationStyles = styles.pagination_box;
   }
   return (
-    <div className={styles.pagination}>
-      <div className={paginationStyles}>
+    <div className={styles.pagination} onClick={handleClose}>
+      <div className={paginationStyles} onClick={handleClose}>
         {Boolean(page - 1) && (
           <button
             type="button"
