@@ -1,3 +1,4 @@
+import { type MouseEventHandler } from 'react';
 import { type Character } from 'rickmortyapi';
 
 export interface ResultsProps {
@@ -7,4 +8,5 @@ export interface ResultsProps {
   setPage: (page: number) => void;
   setLoader: (loader: boolean) => void;
   characterID: string;
+  handleClose: MouseEventHandler;
 }

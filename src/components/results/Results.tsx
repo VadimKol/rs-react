@@ -1,5 +1,4 @@
-import { type MouseEventHandler, type ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { type ReactNode } from 'react';
 
 import not_found from '@/assets/images/not_found.jpg';
 
@@ -9,17 +8,17 @@ import { Pagination } from '../pagination/Pagination';
 import styles from './styles.module.scss';
 import type { ResultsProps } from './types';
 
-export function Results({ characters, total, page, setPage, setLoader, characterID }: ResultsProps): ReactNode {
-  const navigate = useNavigate();
-
-  const handleClose: MouseEventHandler = (e) => {
-    if (e.target === e.currentTarget && characterID !== '/') {
-      navigate('/');
-    }
-  };
-
+export function Results({
+  characters,
+  total,
+  page,
+  setPage,
+  setLoader,
+  characterID,
+  handleClose,
+}: ResultsProps): ReactNode {
   return characters.length ? (
-    <div className={characterID !== '/' ? styles.results : styles.no_character}>
+    <div className={characterID !== '/' ? styles.results : styles.no_character} onClick={handleClose}>
       <ul className={styles.characters} onClick={handleClose} role="presentation">
         {characters.map((character) => (
           <li key={character.id} className={styles.characters_item}>

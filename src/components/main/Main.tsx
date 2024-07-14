@@ -1,5 +1,5 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react';
-import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import { type MouseEventHandler, type ReactNode, useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { type Character, getCharacters } from 'rickmortyapi';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
@@ -22,9 +22,10 @@ export function Main(): ReactNode {
   const searchField = useRef<HTMLInputElement>(null);
   const { pathname } = useLocation();
   const characterID = pathname.replace('/character/', '');
+  const navigate = useNavigate();
 
   if (!pageQuery.get('page')) {
-    setPageQuery({ page: String(page) });
+    setPageQuery({ page: String(page) }, { replace: true });
   }
 
   if (err) {
@@ -58,9 +59,15 @@ export function Main(): ReactNode {
     return <NoMatch setNoMatch={setNoMatch} />;
   }
 
+  const handleClose: MouseEventHandler = (e) => {
+    if (e.target === e.currentTarget && characterID !== '/') {
+      navigate('/');
+    }
+  };
+
   return (
-    <main className="main">
-      <section className={styles.search}>
+    <main className="main" onClick={handleClose} role="presentation">
+      <section className={styles.search} onClick={handleClose}>
         <Search
           character={character}
           loader={loader}
@@ -73,7 +80,7 @@ export function Main(): ReactNode {
           Error
         </button>
       </section>
-      <section className={styles.results}>
+      <section className={styles.results} onClick={handleClose}>
         <div className={characterID !== '/' ? styles.character : styles.results_box}>
           {loader ? (
             <div className={styles.loader} />
@@ -85,6 +92,7 @@ export function Main(): ReactNode {
               setPage={setPage}
               setLoader={setLoader}
               characterID={characterID}
+              handleClose={handleClose}
             />
           )}
           <Outlet context={{ characterID, setNoMatch }} />
