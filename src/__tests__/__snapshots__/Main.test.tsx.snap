@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main Component renders correctly 1`] = `
+<div>
+  <main
+    class="main"
+    role="presentation"
+  >
+    <section
+      class="search"
+    >
+      <form
+        class="search_form"
+      >
+        <input
+          class="search"
+          id="search"
+          placeholder="Search..."
+          type="text"
+          value=""
+        />
+        <button
+          aria-label="Search-button"
+          class="search_button"
+          data-testid="search"
+          type="submit"
+        />
+      </form>
+      <button
+        class="error"
+        type="button"
+      >
+        Error
+      </button>
+    </section>
+    <section
+      class="results"
+    >
+      <div
+        class="results_box"
+      >
+        <div
+          class="loader"
+        />
+      </div>
+    </section>
+  </main>
+</div>
+`;

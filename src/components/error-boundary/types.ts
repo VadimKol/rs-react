@@ -6,5 +6,4 @@ export interface ErrorProps {
 
 export interface ErrorState {
   hasError: boolean;
-  error: Error | null;
 }

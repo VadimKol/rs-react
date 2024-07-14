@@ -8,7 +8,6 @@
 .search {
   gap: 200px;
   align-items: center;
-  margin-bottom: 20px;
 
   @media screen and (width <= 768px) {
     flex-direction: column-reverse;
@@ -45,6 +44,20 @@
   flex-grow: 1;
   flex-direction: column;
   overflow: hidden;
+  padding-top: 20px;
+}
+
+.results_box {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.character {
+  display: flex;
+  flex-grow: 1;
+  gap: 30px;
+  justify-content: space-between;
 }
 
 .loader {

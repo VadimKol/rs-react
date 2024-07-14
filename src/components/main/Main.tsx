@@ -1,91 +1,87 @@
-import { Component, createRef, type ReactNode } from 'react';
+import { type MouseEventHandler, type ReactNode, useEffect, useRef, useState } from 'react';
+import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { type Character, getCharacters } from 'rickmortyapi';
 
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+
+import { NoMatch } from '../no-match/NoMatch';
 import { Results } from '../results/Results';
 import { Search } from '../search/Search';
 import styles from './styles.module.scss';
-import type { MainProps, MainState } from './types';
 
-export class Main extends Component<MainProps, MainState> {
-  constructor(props: MainProps) {
-    super(props);
-    this.state = {
-      characters: [],
-      total: 0,
-      page: 1,
-      loader: true,
-      character: { name: localStorage.getItem('R&M_search') || '' },
-      err: '',
-      searchField: createRef(),
-    };
+export function Main(): ReactNode {
+  const [pageQuery, setPageQuery] = useSearchParams();
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(Math.floor(Number(pageQuery.get('page'))) || 1);
+  const [loader, setLoader] = useState(true);
+  const [ls] = useLocalStorage('R&M_search');
+  const [character, setCharacter] = useState({ name: ls });
+  const [err, setErr] = useState('');
+  const [noMatch, setNoMatch] = useState(false);
+  const searchField = useRef<HTMLInputElement>(null);
+  const { pathname } = useLocation();
+  const characterID = pathname.replace('/character/', '');
+  const navigate = useNavigate();
+
+  if (!pageQuery.get('page')) {
+    setPageQuery({ page: String(page) }, { replace: true });
   }
 
-  public componentDidMount(): void {
-    const { page, character } = this.state;
-    this.getData(page, character);
+  if (err) {
+    throw new Error(err);
   }
 
-  public componentDidUpdate(_: MainProps, prevState: MainState): void {
-    const { page, character } = this.state;
-    if (page !== prevState.page || character !== prevState.character) {
-      this.getData(page, character);
+  if (characterID !== '/' && (/\D/.test(characterID) || characterID.startsWith('0'))) {
+    setNoMatch(true);
+  }
+
+  useEffect(() => {
+    if (!noMatch) {
+      getCharacters({ page, name: character.name })
+        .then((response) => {
+          if (response.status === 200 && response.data.results) {
+            setCharacters(response.data.results);
+            setTotal(response.data.info?.pages || 0);
+          } else if (response.status === 404) {
+            setCharacters([]);
+            setTotal(0);
+          } else {
+            throw new Error(response.statusMessage);
+          }
+        })
+        .catch((error: Error) => setErr(error.message))
+        .finally(() => setLoader(false));
     }
+  }, [page, character, noMatch]);
+
+  if (noMatch) {
+    return <NoMatch setNoMatch={setNoMatch} />;
   }
 
-  public getData = (page: number, character: { name: string }): void => {
-    getCharacters({ page, name: character.name })
-      .then((response) => {
-        if (response.status === 200 && response.data.results) {
-          this.setCharacters(response.data.results);
-          this.setTotal(response.data.info?.pages || 0);
-        } else if (response.status === 404) {
-          this.setCharacters([]);
-          this.setTotal(0);
-        } else {
-          throw new Error(response.statusMessage);
-        }
-      })
-      .catch((error: Error) => this.setErr(error.message))
-      .finally(() => this.setLoader(false));
+  const handleClose: MouseEventHandler = (e) => {
+    if (e.target === e.currentTarget && characterID !== '/') {
+      navigate('/');
+    }
   };
 
-  public setPage = (page: number): void => this.setState((prevState) => ({ ...prevState, page }));
-
-  public setLoader = (loader: boolean): void => this.setState((prevState) => ({ ...prevState, loader }));
-
-  public setTotal = (total: number): void => this.setState((prevState) => ({ ...prevState, total }));
-
-  public setCharacters = (characters: Character[]): void =>
-    this.setState((prevState) => ({ ...prevState, characters }));
-
-  public setCharacter = (character: { name: string }): void =>
-    this.setState((prevState) => ({ ...prevState, character }));
-
-  public setErr = (err: string): void => this.setState((prevState) => ({ ...prevState, err }));
-
-  public render(): ReactNode {
-    const { characters, total, page, loader, character, err, searchField } = this.state;
-
-    if (err) {
-      throw new Error(err);
-    }
-
-    return (
-      <main className="main">
-        <section className={styles.search}>
-          <Search
-            character={character}
-            loader={loader}
-            searchField={searchField}
-            setCharacter={this.setCharacter}
-            setPage={this.setPage}
-            setLoader={this.setLoader}
-          />
-          <button className={styles.error} type="button" onClick={() => this.setErr('Oops, something went wrong!')}>
-            Error
-          </button>
-        </section>
-        <section className={styles.results}>
+  return (
+    <main className="main" onClick={handleClose} role="presentation">
+      <section className={styles.search} onClick={handleClose}>
+        <Search
+          character={character}
+          loader={loader}
+          searchField={searchField}
+          setCharacter={setCharacter}
+          setPage={setPage}
+          setLoader={setLoader}
+        />
+        <button className={styles.error} type="button" onClick={() => setErr('Oops, something went wrong!')}>
+          Error
+        </button>
+      </section>
+      <section className={styles.results} onClick={handleClose}>
+        <div className={characterID !== '/' ? styles.character : styles.results_box}>
           {loader ? (
             <div className={styles.loader} />
           ) : (
@@ -93,12 +89,15 @@ export class Main extends Component<MainProps, MainState> {
               characters={characters}
               total={total}
               page={page}
-              setPage={this.setPage}
-              setLoader={this.setLoader}
+              setPage={setPage}
+              setLoader={setLoader}
+              characterID={characterID}
+              handleClose={handleClose}
             />
           )}
-        </section>
-      </main>
-    );
-  }
+          <Outlet context={{ characterID, setNoMatch }} />
+        </div>
+      </section>
+    </main>
+  );
 }
