@@ -4,6 +4,11 @@ import { render, screen } from '@testing-library/react';
 
 import { ErrorBoundary } from '@/components/error-boundary/ErrorBoundary';
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual<object>('react-router-dom'),
+  useRouteError: jest.fn(),
+}));
+
 describe('ErrorBoundary component', () => {
   it('renders children', () => {
     render(
@@ -13,5 +18,18 @@ describe('ErrorBoundary component', () => {
     );
 
     expect(screen.getByText('Some content')).toBeInTheDocument();
+  });
+
+  it('renders an error message', () => {
+    const Throw = (): never => {
+      throw new Error('Error');
+    };
+
+    render(
+      <ErrorBoundary>
+        <Throw />
+      </ErrorBoundary>,
+    );
+    expect(screen.getByText('Please refresh the page')).toBeInTheDocument();
   });
 });
