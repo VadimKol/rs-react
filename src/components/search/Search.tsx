@@ -1,9 +1,11 @@
 import { type ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import type { SearchProps } from './types';
 
 export function Search({ searchField, character, setCharacter, setPage, setLoader, loader }: SearchProps): ReactNode {
+  const [, setPageQuery] = useSearchParams();
   return (
     <form
       className={styles.search_form}
@@ -15,6 +17,7 @@ export function Search({ searchField, character, setCharacter, setPage, setLoade
           localStorage.setItem('R&M_search', searchValue);
           setPage(1);
           setLoader(true);
+          setPageQuery({ page: '1' });
         }
       }}
     >
