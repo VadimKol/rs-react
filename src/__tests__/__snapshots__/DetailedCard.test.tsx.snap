@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailedCard Component renders correctly 1`] = `
+<div>
+  <section
+    class="detailed_Card"
+  >
+    <div
+      class="loader"
+    />
+  </section>
+</div>
+`;

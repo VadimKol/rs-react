@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoMatch Component renders correctly 1`] = `
+<div>
+  <main
+    class="main"
+  >
+    <img
+      alt="404 error"
+      class="error_img"
+      height="490"
+      src="stub-test"
+      width="490"
+    />
+    <div
+      class="buttons"
+    >
+      <button
+        class="button home"
+        id=""
+        type="button"
+      >
+        Home page
+      </button>
+    </div>
+  </main>
+</div>
+`;

@@ -21,6 +21,7 @@ export function Pagination({ page, total, setPage, setLoader, handleClose }: Pag
       <div className={paginationStyles} onClick={handleClose}>
         {Boolean(page - 1) && (
           <button
+            data-testid="left"
             type="button"
             aria-label="Left"
             className={styles.pag_left}
@@ -36,6 +37,7 @@ export function Pagination({ page, total, setPage, setLoader, handleClose }: Pag
         </div>
         {page < total && (
           <button
+            data-testid="right"
             type="button"
             aria-label="Right"
             className={styles.pag_right}
