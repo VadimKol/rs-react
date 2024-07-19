@@ -17,7 +17,7 @@
     "stylelint:fix": "stylelint ./src/**/*.{css,scss} --fix --quiet-deprecation-warnings",
     "test": "jest",
     "prepare": "husky",
-    "deploy": "npm run build && npx gh-pages -d dist -e hooks-and-routing"
+    "deploy": "npm run build && npx gh-pages -d dist -e app-state-management"
   },
   "repository": {
     "type": "git",
