@@ -10,6 +10,9 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('ErrorBoundary component', () => {
+  const c = console;
+  c.error = jest.fn();
+
   it('renders children', () => {
     render(
       <ErrorBoundary>

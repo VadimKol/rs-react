@@ -22,7 +22,6 @@ exports[`Main Component renders correctly 1`] = `
         <button
           aria-label="Search-button"
           class="search_button"
-          data-testid="search"
           type="submit"
         />
       </form>

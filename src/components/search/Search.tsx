@@ -32,7 +32,7 @@ export function Search({ searchField, character, setCharacter, setPage, setLoade
         ref={searchField}
         defaultValue={character.name}
       />
-      <button data-testid="search" type="submit" className={styles.search_button} aria-label="Search-button" />
+      <button type="submit" className={styles.search_button} aria-label="Search-button" />
     </form>
   );
 }

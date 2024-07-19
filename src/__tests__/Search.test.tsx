@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { type RefObject } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -13,6 +14,8 @@ if (searchField.current) {
 }
 
 describe('Search Component', () => {
+  const user = userEvent.setup();
+
   afterEach(() => {
     localStorage.removeItem('R&M_search');
   });
@@ -34,7 +37,7 @@ describe('Search Component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('checks searchTerm in localStorage', () => {
+  it('checks searchTerm in localStorage', async () => {
     render(
       <MemoryRouter>
         <Search
@@ -48,9 +51,9 @@ describe('Search Component', () => {
       </MemoryRouter>,
     );
 
-    const buttonSearch = screen.getByTestId('search');
+    const buttonSearch = screen.getByRole('button', { name: 'Search-button' });
 
-    fireEvent.click(buttonSearch);
+    await user.click(buttonSearch);
 
     expect('Rick').toBe(localStorage.getItem('R&M_search'));
   });

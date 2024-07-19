@@ -22,7 +22,6 @@ exports[`Pagination Component renders correctly 1`] = `
       <button
         aria-label="Right"
         class="pag_right"
-        data-testid="right"
         type="button"
       />
     </div>
