@@ -1,5 +1,3 @@
-import '@testing-library/jest-dom';
-
 import { render, screen } from '@testing-library/react';
 import { type ReactNode } from 'react';
 import { createMemoryRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
