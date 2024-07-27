@@ -65,7 +65,7 @@ export function Main(): ReactNode {
               handleClose={handleClose}
             />
           )}
-          <Outlet context={{ characterID }} />
+          <Outlet context={characterID} />
         </div>
       </section>
     </main>

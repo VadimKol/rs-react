@@ -6,8 +6,72 @@ exports[`DetailedCard Component renders correctly 1`] = `
     class="detailed_Card"
   >
     <div
-      class="loader"
-    />
+      class="card"
+    >
+      <div
+        class="image_container"
+      >
+        <div
+          class="loader"
+        />
+        <img
+          alt="Character"
+          class="character_img"
+          src=""
+          style="display: none;"
+        />
+      </div>
+      <div
+        class="text_container"
+      >
+        <h2
+          class="card_title"
+        >
+          Rick
+        </h2>
+        <ul
+          class="desc"
+        >
+          <li
+            class="desc_item"
+          >
+            Species: 
+          </li>
+          <li
+            class="desc_item"
+          >
+            Gender: Male
+          </li>
+          <li
+            class="desc_item"
+          >
+            Status: Alive
+          </li>
+          <li
+            class="desc_item"
+          >
+            Origin: 
+          </li>
+          <li
+            class="desc_item"
+          >
+            Location: 
+          </li>
+        </ul>
+        <p
+          class="episodes"
+        >
+          Episodes: 
+        </p>
+      </div>
+    </div>
+    <button
+      class="button close"
+      id=""
+      type="button"
+    >
+      Close
+    </button>
   </section>
 </div>
 `;

@@ -8,7 +8,7 @@ import { ImageBlock } from '../image-block/ImageBlock';
 import styles from './styles.module.scss';
 
 export function DetailedCard(): ReactNode {
-  const { characterID } = useOutletContext<{ characterID: string }>();
+  const characterID = useOutletContext<string>();
   const navigate = useNavigate();
   const { data: character, isFetching: loader, isError, error } = useGetCharacterQuery(Number(characterID));
 

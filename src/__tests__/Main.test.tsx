@@ -1,8 +1,11 @@
 import { render, waitFor } from '@testing-library/react';
 import { useState } from 'react';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import { Main } from '@/components/main/Main';
+import { useGetCharactersQuery } from '@/store/rickmortyApi';
+import { store } from '@/store/store';
 
 global.URLSearchParams = jest.fn().mockImplementation(() => ({
   get: jest.fn(() => 'mockedValue'),
@@ -24,11 +27,26 @@ jest.mock('react-router-dom', () => ({
   },
 }));
 
+jest.mock('@/store/rickmortyApi', () => ({
+  ...jest.requireActual<object>('@/store/rickmortyApi'),
+  useGetCharactersQuery: jest.fn(),
+}));
+
+const mockUseGetCharactersQuery = useGetCharactersQuery as jest.Mock;
+
 describe('Main Component', () => {
   it('renders correctly', async () => {
+    mockUseGetCharactersQuery.mockReturnValue({
+      data: { characters: [], totalPages: 0 },
+      isFetching: false,
+      isError: false,
+      error: undefined,
+    });
     const { container } = render(
       <MemoryRouter>
-        <Main />
+        <Provider store={store}>
+          <Main />
+        </Provider>
       </MemoryRouter>,
     );
 
