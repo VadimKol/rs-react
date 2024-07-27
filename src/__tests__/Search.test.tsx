@@ -26,7 +26,6 @@ describe('Search Component', () => {
           character={{ name: 'Rick' }}
           setCharacter={jest.fn}
           setPage={jest.fn}
-          setLoader={jest.fn}
           loader={false}
         />
       </MemoryRouter>,
@@ -43,7 +42,6 @@ describe('Search Component', () => {
           character={{ name: 'Rick' }}
           setCharacter={jest.fn}
           setPage={jest.fn}
-          setLoader={jest.fn}
           loader={false}
         />
       </MemoryRouter>,

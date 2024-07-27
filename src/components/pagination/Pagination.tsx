@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { type PaginationProps } from './types';
 
-export function Pagination({ page, total, setPage, setLoader, handleClose }: PaginationProps): ReactNode {
+export function Pagination({ page, total, setPage, handleClose }: PaginationProps): ReactNode {
   const [, setPageQuery] = useSearchParams();
   let paginationStyles = styles.pagination_box;
   if (!(page - 1)) {
@@ -26,7 +26,6 @@ export function Pagination({ page, total, setPage, setLoader, handleClose }: Pag
             className={styles.pag_left}
             onClick={() => {
               setPage(page - 1);
-              setLoader(true);
               setPageQuery({ page: String(page - 1) });
             }}
           />
@@ -41,7 +40,6 @@ export function Pagination({ page, total, setPage, setLoader, handleClose }: Pag
             className={styles.pag_right}
             onClick={() => {
               setPage(page + 1);
-              setLoader(true);
               setPageQuery({ page: String(page + 1) });
             }}
           />

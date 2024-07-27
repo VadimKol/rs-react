@@ -1,40 +1,24 @@
-import { type ReactNode, useEffect, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
-import { type Character, getCharacter } from 'rickmortyapi';
+import { type ReactNode } from 'react';
+import { Navigate, useNavigate, useOutletContext } from 'react-router-dom';
+
+import { useGetCharacterQuery } from '@/store/rickmortyApi';
 
 import { CustomButton } from '../custom-button/СustomButton';
 import { ImageBlock } from '../image-block/ImageBlock';
 import styles from './styles.module.scss';
 
 export function DetailedCard(): ReactNode {
-  const { characterID, setNoMatch } = useOutletContext<{
-    characterID: string;
-    setNoMatch: (noMatch: boolean) => void;
-  }>();
-  const [character, setCharacter] = useState<Character>({} as Character);
+  const { characterID } = useOutletContext<{ characterID: string }>();
   const navigate = useNavigate();
-  const [err, setErr] = useState('');
-  const [loader, setLoader] = useState(true);
+  const { data: character, isFetching: loader, isError, error } = useGetCharacterQuery(Number(characterID));
 
-  if (err) {
-    throw new Error(err);
+  if (isError) {
+    throw error;
   }
 
-  useEffect(() => {
-    setLoader(true);
-    getCharacter(Number(characterID))
-      .then((response) => {
-        if (response.status === 200) {
-          setCharacter(response.data);
-        } else if (response.status === 404) {
-          setNoMatch(true);
-        } else {
-          throw new Error(response.statusMessage);
-        }
-      })
-      .catch((error: Error) => setErr(error.message))
-      .finally(() => setLoader(false));
-  }, [characterID, setNoMatch]);
+  if (character === null) {
+    return <Navigate to="*" replace />;
+  }
 
   const desc = [
     `Species: ${character?.species}`,

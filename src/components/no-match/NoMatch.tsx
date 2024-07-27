@@ -6,7 +6,7 @@ import error_img from '@/assets/images/404.png';
 import { CustomButton } from '../custom-button/СustomButton';
 import styles from './styles.module.scss';
 
-export function NoMatch({ setNoMatch }: { setNoMatch?: (noMatch: boolean) => void }): ReactNode {
+export function NoMatch(): ReactNode {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +17,6 @@ export function NoMatch({ setNoMatch }: { setNoMatch?: (noMatch: boolean) => voi
           className={styles.home}
           onClick={() => {
             navigate('/');
-            setNoMatch?.(false);
           }}
         >
           Home page

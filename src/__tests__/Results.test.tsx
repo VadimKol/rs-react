@@ -51,15 +51,7 @@ describe('Results Component', () => {
   it('renders Rick and Morty', () => {
     render(
       <MemoryRouter>
-        <Results
-          characters={characters}
-          total={2}
-          page={1}
-          setPage={jest.fn}
-          setLoader={jest.fn}
-          characterID="1"
-          handleClose={jest.fn}
-        />
+        <Results characters={characters} total={2} page={1} setPage={jest.fn} characterID="1" handleClose={jest.fn} />
       </MemoryRouter>,
     );
 
@@ -72,15 +64,7 @@ describe('Results Component', () => {
   it('renders characters not found', () => {
     render(
       <MemoryRouter>
-        <Results
-          characters={[]}
-          total={2}
-          page={1}
-          setPage={jest.fn}
-          setLoader={jest.fn}
-          characterID="1"
-          handleClose={jest.fn}
-        />
+        <Results characters={[]} total={2} page={1} setPage={jest.fn} characterID="1" handleClose={jest.fn} />
       </MemoryRouter>,
     );
 
