@@ -63,9 +63,19 @@ exports[`DetailedCard Component renders correctly 1`] = `
         >
           Episodes: 
         </p>
+        <button
+          aria-label="Add to favorites"
+          class="favorite"
+          name="favorite"
+          type="button"
+          value="false"
+        >
+          ☆
+        </button>
       </div>
     </div>
     <button
+      aria-label="Button"
       class="button close"
       id=""
       type="button"

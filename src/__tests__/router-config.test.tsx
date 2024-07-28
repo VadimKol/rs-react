@@ -28,6 +28,8 @@ const character: Character = {
   image: '',
   episode: [],
 };
+global.URL.createObjectURL = jest.fn();
+global.URL.revokeObjectURL = jest.fn();
 
 global.URLSearchParams = jest.fn().mockImplementation(() => ({
   get: jest.fn(() => 'mockedValue'),

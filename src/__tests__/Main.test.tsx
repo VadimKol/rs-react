@@ -7,6 +7,9 @@ import { Main } from '@/components/main/Main';
 import { useGetCharactersQuery } from '@/store/rickmortyApi';
 import { store } from '@/store/store';
 
+global.URL.createObjectURL = jest.fn();
+global.URL.revokeObjectURL = jest.fn();
+
 global.URLSearchParams = jest.fn().mockImplementation(() => ({
   get: jest.fn(() => 'mockedValue'),
 }));
