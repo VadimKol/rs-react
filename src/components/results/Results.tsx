@@ -21,7 +21,7 @@ export function Results({ characters, total, page, setPage, characterID, handleC
       <Pagination total={total} page={page} setPage={setPage} handleClose={handleClose} />
     </div>
   ) : (
-    <div className={styles.not_found_box}>
+    <div className={styles.not_found_box} onClick={handleClose}>
       <div className={styles.not_found}>
         <ImageBlock src={not_found} alt="Rick and Morty not found" />
         <div className={styles.text_container}>Characters not found</div>
