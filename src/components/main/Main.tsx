@@ -2,6 +2,7 @@ import { type MouseEventHandler, type ReactNode, useEffect, useRef, useState } f
 import { Navigate, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useTheme } from '@/hooks/useTheme';
 import { useGetCharactersQuery } from '@/store/rickmortyApi';
 
 import { Flyout } from '../flyout/Flyout';
@@ -20,6 +21,7 @@ export function Main(): ReactNode {
   const navigate = useNavigate();
   const { data, isFetching: loader, isError, error } = useGetCharactersQuery({ page, character });
   const { characters, totalPages: total } = data || { characters: [], totalPages: 0 };
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!pageQuery.get('page')) {
@@ -42,7 +44,7 @@ export function Main(): ReactNode {
   };
 
   return (
-    <main className="main" onClick={handleClose} role="presentation">
+    <main className={theme === 'dark' ? 'main' : 'main light'} onClick={handleClose} role="presentation">
       <section onClick={handleClose}>
         <Search
           character={character}

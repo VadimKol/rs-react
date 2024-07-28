@@ -8,6 +8,7 @@
 .card {
   position: relative;
   width: 265px;
+  color: var(--text-color);
   background:
     linear-gradient(var(--background-color) 0 0) padding-box,
     linear-gradient(to top, var(--primary-color), var(--secondary-color)) border-box;
@@ -20,7 +21,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 20px 30px;
-  box-shadow: inset 0 5px 5px 0 #d3d3d3;
+  box-shadow: inset 0 5px 5px 0 var(--gray-lighter);
 }
 
 .card_title {

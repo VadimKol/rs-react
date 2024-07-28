@@ -16,6 +16,8 @@
 }
 
 .favorite[value="false"] {
+  color: var(--text-color);
+
   &:hover {
     color: var(--secondary-color);
   }

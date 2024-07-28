@@ -1,7 +1,9 @@
 .header {
   position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
-  background-image: linear-gradient(to top, #393838, #000000);
+  background-image: linear-gradient(to top, var(--gray), var(--text-color));
 }
 
 .container {
@@ -10,4 +12,33 @@
   margin: auto;
   background-image: url("/src/assets/images/header.png");
   background-size: cover;
+
+  @media screen and (width <= 340px) {
+    width: 100%;
+  }
+}
+
+.theme {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  border: none;
+  cursor: pointer;
+  mask-size: cover;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--background-color);
+    }
+  }
+}
+
+.button_dark {
+  background-color: var(--primary-color);
+  mask-image: var(--moon);
+}
+
+.button_light {
+  background-color: var(--secondary-color);
+  mask-image: var(--sun);
 }

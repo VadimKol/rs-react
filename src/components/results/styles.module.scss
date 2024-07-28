@@ -45,7 +45,8 @@
   justify-content: center;
   align-items: center;
   padding: 20px 30px;
-  box-shadow: inset 0 5px 5px 0 #d3d3d3;
+  color: var(--text-color);
+  box-shadow: inset 0 5px 5px 0 var(--gray-lighter);
 }
 
 .results {

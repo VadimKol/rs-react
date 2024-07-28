@@ -6,16 +6,19 @@ import { Footer } from '@/components/footer/Footer.tsx';
 import { Header } from '@/components/header/Header.tsx';
 
 import { ErrorBoundary } from './components/error-boundary/ErrorBoundary';
+import { ThemeProvider } from './contexts/theme';
 import { store } from './store/store';
 
 export function App(): ReactNode {
   return (
     <ErrorBoundary>
-      <Provider store={store}>
-        <Header />
-        <Outlet />
-        <Footer />
-      </Provider>
+      <ThemeProvider>
+        <Provider store={store}>
+          <Header />
+          <Outlet />
+          <Footer />
+        </Provider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }
