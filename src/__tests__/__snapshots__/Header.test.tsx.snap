@@ -8,6 +8,11 @@ exports[`Header Component renders correctly 1`] = `
     <div
       class="container"
     />
+    <button
+      aria-label="Theme switcher"
+      class="theme button_dark"
+      type="button"
+    />
   </header>
 </div>
 `;
