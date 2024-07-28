@@ -1,0 +1,30 @@
+.favorite {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  font-size: 3rem;
+  line-height: 1;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.5s, transform 0.5s;
+
+  &:active {
+    transform: scale(0.7);
+  }
+}
+
+.favorite[value="false"] {
+  &:hover {
+    color: var(--secondary-color);
+  }
+}
+
+.favorite[value="true"] {
+  color: var(--secondary-color);
+
+  &:hover {
+    color: var(--text-color);
+  }
+}

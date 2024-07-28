@@ -4,6 +4,7 @@ import { Navigate, Outlet, useLocation, useNavigate, useSearchParams } from 'rea
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useGetCharactersQuery } from '@/store/rickmortyApi';
 
+import { Flyout } from '../flyout/Flyout';
 import { Results } from '../results/Results';
 import { Search } from '../search/Search';
 import styles from './styles.module.scss';
@@ -68,6 +69,7 @@ export function Main(): ReactNode {
           <Outlet context={characterID} />
         </div>
       </section>
+      <Flyout />
     </main>
   );
 }

@@ -4,6 +4,7 @@ import { Navigate, useNavigate, useOutletContext } from 'react-router-dom';
 import { useGetCharacterQuery } from '@/store/rickmortyApi';
 
 import { CustomButton } from '../custom-button/СustomButton';
+import { FavoriteButton } from '../favorite-button/FavoriteButton';
 import { ImageBlock } from '../image-block/ImageBlock';
 import styles from './styles.module.scss';
 
@@ -49,6 +50,7 @@ export function DetailedCard(): ReactNode {
               <p className={styles.episodes}>
                 Episodes: {character?.episode.map((episode) => episode.replace(/\D/g, '')).join(', ')}
               </p>
+              <FavoriteButton character={character} />
             </div>
           </div>
           <CustomButton className={styles.close} onClick={() => navigate('/')}>
