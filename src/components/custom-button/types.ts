@@ -5,4 +5,5 @@ export interface ButtonProps {
   className?: string;
   isDisabled?: boolean;
   id?: string;
+  aria_label?: string;
 }

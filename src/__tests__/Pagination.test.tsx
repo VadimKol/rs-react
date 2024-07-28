@@ -1,6 +1,5 @@
-import '@testing-library/jest-dom';
-
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -23,29 +22,31 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Pagination Component', () => {
+  const user = userEvent.setup();
+
   it('renders correctly', () => {
     const { container } = render(
       <MemoryRouter>
-        <Pagination page={1} total={2} setPage={jest.fn} setLoader={jest.fn} handleClose={jest.fn} />
+        <Pagination page={1} total={2} setPage={jest.fn} handleClose={jest.fn} />
       </MemoryRouter>,
     );
 
     expect(container).toMatchSnapshot();
   });
 
-  it('should change page query params', () => {
+  it('should change page query params', async () => {
     render(
       <MemoryRouter>
-        <Pagination page={2} total={3} setPage={jest.fn} setLoader={jest.fn} handleClose={jest.fn} />
+        <Pagination page={2} total={3} setPage={jest.fn} handleClose={jest.fn} />
       </MemoryRouter>,
     );
 
-    const buttonRight = screen.getByTestId('right');
-    const buttonLeft = screen.getByTestId('left');
+    const buttonRight = screen.getByRole('button', { name: 'Right' });
+    const buttonLeft = screen.getByRole('button', { name: 'Left' });
 
-    fireEvent.click(buttonRight);
+    await user.click(buttonRight);
     expect(mockSearchParam).toEqual({ page: '3' });
-    fireEvent.click(buttonLeft);
+    await user.click(buttonLeft);
     expect(mockSearchParam).toEqual({ page: '1' });
   });
 });

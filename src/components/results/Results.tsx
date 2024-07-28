@@ -8,15 +8,7 @@ import { Pagination } from '../pagination/Pagination';
 import styles from './styles.module.scss';
 import type { ResultsProps } from './types';
 
-export function Results({
-  characters,
-  total,
-  page,
-  setPage,
-  setLoader,
-  characterID,
-  handleClose,
-}: ResultsProps): ReactNode {
+export function Results({ characters, total, page, setPage, characterID, handleClose }: ResultsProps): ReactNode {
   return characters.length ? (
     <div className={characterID !== '/' ? styles.results : styles.no_character} onClick={handleClose}>
       <ul className={styles.characters} onClick={handleClose} role="presentation">
@@ -26,10 +18,10 @@ export function Results({
           </li>
         ))}
       </ul>
-      <Pagination total={total} page={page} setPage={setPage} setLoader={setLoader} handleClose={handleClose} />
+      <Pagination total={total} page={page} setPage={setPage} handleClose={handleClose} />
     </div>
   ) : (
-    <div className={styles.not_found_box}>
+    <div className={styles.not_found_box} onClick={handleClose}>
       <div className={styles.not_found}>
         <ImageBlock src={not_found} alt="Rick and Morty not found" />
         <div className={styles.text_container}>Characters not found</div>

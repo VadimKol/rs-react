@@ -7,7 +7,7 @@
   align-items: center;
   width: 100%;
   padding: 20px;
-  background: radial-gradient(circle at 50% 50%, #393838 0%, #000000 100%);
+  background: radial-gradient(circle at 50% 50%, var(--gray) 0%, var(--text-color) 100%);
 }
 
 .error_img {
@@ -26,7 +26,7 @@
 
 .desc {
   font-size: 2rem;
-  color: #ffffff;
+  color: var(--background-color);
 
   @media screen and (width <= 550px) {
     font-size: 1rem;

@@ -6,9 +6,7 @@ exports[`Main Component renders correctly 1`] = `
     class="main"
     role="presentation"
   >
-    <section
-      class="search"
-    >
+    <section>
       <form
         class="search_form"
       >
@@ -22,16 +20,9 @@ exports[`Main Component renders correctly 1`] = `
         <button
           aria-label="Search-button"
           class="search_button"
-          data-testid="search"
           type="submit"
         />
       </form>
-      <button
-        class="error"
-        type="button"
-      >
-        Error
-      </button>
     </section>
     <section
       class="results"
@@ -40,8 +31,31 @@ exports[`Main Component renders correctly 1`] = `
         class="results_box"
       >
         <div
-          class="loader"
-        />
+          class="not_found_box"
+        >
+          <div
+            class="not_found"
+          >
+            <div
+              class="image_container"
+            >
+              <div
+                class="loader"
+              />
+              <img
+                alt="Rick and Morty not found"
+                class="character_img"
+                src="stub-test"
+                style="display: none;"
+              />
+            </div>
+            <div
+              class="text_container"
+            >
+              Characters not found
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>

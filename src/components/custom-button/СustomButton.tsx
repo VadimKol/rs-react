@@ -11,6 +11,7 @@ export function CustomButton({
   className,
   isDisabled = false,
   id = '',
+  aria_label = 'Button',
 }: ButtonProps): ReactNode {
   return (
     <button
@@ -19,6 +20,7 @@ export function CustomButton({
       onClick={onClick}
       disabled={isDisabled}
       id={id}
+      aria-label={aria_label}
     >
       {children}
     </button>

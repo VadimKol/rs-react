@@ -1,14 +1,16 @@
 import { type ReactNode } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 import styles from './styles.module.scss';
 import type { SearchProps } from './types';
 
-export function Search({ searchField, character, setCharacter, setPage, setLoader, loader }: SearchProps): ReactNode {
+export function Search({ searchField, character, setCharacter, setPage, loader }: SearchProps): ReactNode {
   const [, setPageQuery] = useSearchParams();
   const [, setLs] = useLocalStorage('R&M_search');
+  const navigate = useNavigate();
+
   return (
     <form
       className={styles.search_form}
@@ -19,8 +21,8 @@ export function Search({ searchField, character, setCharacter, setPage, setLoade
           setCharacter({ name: searchValue });
           setLs(searchValue);
           setPage(1);
-          setLoader(true);
           setPageQuery({ page: '1' });
+          navigate('/', { replace: true });
         }
       }}
     >
@@ -32,7 +34,7 @@ export function Search({ searchField, character, setCharacter, setPage, setLoade
         ref={searchField}
         defaultValue={character.name}
       />
-      <button data-testid="search" type="submit" className={styles.search_button} aria-label="Search-button" />
+      <button type="submit" className={styles.search_button} aria-label="Search-button" />
     </form>
   );
 }

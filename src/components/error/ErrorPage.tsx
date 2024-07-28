@@ -2,12 +2,14 @@ import { type ReactNode, useEffect, useState } from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 import error_img from '@/assets/images/loader.png';
+import { useTheme } from '@/hooks/useTheme';
 
 import styles from './styles.module.scss';
 
 export function ErrorPage(): ReactNode {
   const error = useRouteError();
   const [errorMessage, setErrorMessage] = useState<string>();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (error) {
@@ -22,7 +24,7 @@ export function ErrorPage(): ReactNode {
   }, [error]);
 
   return (
-    <main className="main">
+    <main className={theme === 'dark' ? 'main' : 'main light'}>
       <div className={styles.error}>
         <p className={styles.name}>ERROR</p>
         <img className={styles.error_img} src={error_img} alt="Rick and Morty error" width={500} height={500} />

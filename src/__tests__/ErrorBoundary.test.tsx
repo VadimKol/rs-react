@@ -1,5 +1,3 @@
-import '@testing-library/jest-dom';
-
 import { render, screen } from '@testing-library/react';
 
 import { ErrorBoundary } from '@/components/error-boundary/ErrorBoundary';
@@ -10,6 +8,9 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('ErrorBoundary component', () => {
+  const c = console;
+  c.error = jest.fn();
+
   it('renders children', () => {
     render(
       <ErrorBoundary>

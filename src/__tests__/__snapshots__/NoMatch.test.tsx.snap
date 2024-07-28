@@ -16,6 +16,7 @@ exports[`NoMatch Component renders correctly 1`] = `
       class="buttons"
     >
       <button
+        aria-label="Button"
         class="button home"
         id=""
         type="button"

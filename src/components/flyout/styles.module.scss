@@ -1,0 +1,43 @@
+.flyout {
+  position: fixed;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  padding: 15px;
+  background:
+    linear-gradient(var(--background-color) 0 0) padding-box,
+    linear-gradient(to top, var(--primary-color), var(--secondary-color)) border-box;
+  border: 5px solid transparent;
+  border-radius: 10px;
+
+
+  @media screen and (width <= 874px) {
+    width: 280px;
+  }
+}
+
+.title {
+  margin-top: 0;
+  color: var(--text-color);
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  font-size: 1.2rem;
+
+  @media screen and (width <= 874px) {
+    font-size: 0.9rem;
+  }
+}
+
+.download_link {
+  text-decoration: none;
+  color: var(--text-color);
+}
+

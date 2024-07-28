@@ -31,6 +31,15 @@ exports[`CharacterCard Component renders correctly 1`] = `
           Rick
         </h2>
       </a>
+      <button
+        aria-label="Add to favorites"
+        class="favorite"
+        name="favorite"
+        type="button"
+        value="false"
+      >
+        ☆
+      </button>
     </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ exports[`Footer Component renders correctly 1`] = `
     class="footer"
   >
     <div
-      class="container"
+      class="container dark_rs"
     />
   </footer>
 </div>

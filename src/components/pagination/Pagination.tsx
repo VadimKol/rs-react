@@ -1,11 +1,13 @@
 import { type ReactNode } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import { type PaginationProps } from './types';
 
-export function Pagination({ page, total, setPage, setLoader, handleClose }: PaginationProps): ReactNode {
+export function Pagination({ page, total, setPage, handleClose }: PaginationProps): ReactNode {
   const [, setPageQuery] = useSearchParams();
+  const navigate = useNavigate();
+
   let paginationStyles = styles.pagination_box;
   if (!(page - 1)) {
     paginationStyles = `${styles.pagination_box_before}`;
@@ -16,37 +18,24 @@ export function Pagination({ page, total, setPage, setLoader, handleClose }: Pag
   if (!(page - 1) && !(page < total)) {
     paginationStyles = styles.pagination_box;
   }
+
+  const handlePage = (newPage: number): void => {
+    setPage(newPage);
+    setPageQuery({ page: String(newPage) });
+    navigate('/', { replace: true });
+  };
+
   return (
     <div className={styles.pagination} onClick={handleClose}>
       <div className={paginationStyles} onClick={handleClose}>
         {Boolean(page - 1) && (
-          <button
-            data-testid="left"
-            type="button"
-            aria-label="Left"
-            className={styles.pag_left}
-            onClick={() => {
-              setPage(page - 1);
-              setLoader(true);
-              setPageQuery({ page: String(page - 1) });
-            }}
-          />
+          <button type="button" aria-label="Left" className={styles.pag_left} onClick={() => handlePage(page - 1)} />
         )}
         <div className={styles.pages}>
           <span>{page}</span>-<span>{total}</span>
         </div>
         {page < total && (
-          <button
-            data-testid="right"
-            type="button"
-            aria-label="Right"
-            className={styles.pag_right}
-            onClick={() => {
-              setPage(page + 1);
-              setLoader(true);
-              setPageQuery({ page: String(page + 1) });
-            }}
-          />
+          <button type="button" aria-label="Right" className={styles.pag_right} onClick={() => handlePage(page + 1)} />
         )}
       </div>
     </div>

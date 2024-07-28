@@ -20,12 +20,8 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
 
   public render(): ReactNode {
     const { hasError } = this.state;
-    if (hasError) {
-      return <ErrorPage />;
-    }
-
     const { children } = this.props;
 
-    return children;
+    return hasError ? <ErrorPage /> : children;
   }
 }
