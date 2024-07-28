@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
@@ -9,6 +9,8 @@ import type { SearchProps } from './types';
 export function Search({ searchField, character, setCharacter, setPage, loader }: SearchProps): ReactNode {
   const [, setPageQuery] = useSearchParams();
   const [, setLs] = useLocalStorage('R&M_search');
+  const navigate = useNavigate();
+
   return (
     <form
       className={styles.search_form}
@@ -20,6 +22,7 @@ export function Search({ searchField, character, setCharacter, setPage, loader }
           setLs(searchValue);
           setPage(1);
           setPageQuery({ page: '1' });
+          navigate('/', { replace: true });
         }
       }}
     >

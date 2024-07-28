@@ -1,11 +1,13 @@
 import { type ReactNode } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import { type PaginationProps } from './types';
 
 export function Pagination({ page, total, setPage, handleClose }: PaginationProps): ReactNode {
   const [, setPageQuery] = useSearchParams();
+  const navigate = useNavigate();
+
   let paginationStyles = styles.pagination_box;
   if (!(page - 1)) {
     paginationStyles = `${styles.pagination_box_before}`;
@@ -16,6 +18,7 @@ export function Pagination({ page, total, setPage, handleClose }: PaginationProp
   if (!(page - 1) && !(page < total)) {
     paginationStyles = styles.pagination_box;
   }
+
   return (
     <div className={styles.pagination} onClick={handleClose}>
       <div className={paginationStyles} onClick={handleClose}>
@@ -27,6 +30,7 @@ export function Pagination({ page, total, setPage, handleClose }: PaginationProp
             onClick={() => {
               setPage(page - 1);
               setPageQuery({ page: String(page - 1) });
+              navigate('/', { replace: true });
             }}
           />
         )}
@@ -41,6 +45,7 @@ export function Pagination({ page, total, setPage, handleClose }: PaginationProp
             onClick={() => {
               setPage(page + 1);
               setPageQuery({ page: String(page + 1) });
+              navigate('/', { replace: true });
             }}
           />
         )}
