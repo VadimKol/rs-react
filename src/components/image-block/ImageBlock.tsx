@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { type ReactNode, useState } from 'react';
 
 import { Loader } from '../loader/Loader';
@@ -9,7 +10,7 @@ export function ImageBlock({ src, alt }: ImageBlockProps): ReactNode {
   return (
     <div className={styles.image_container}>
       {isImageLoading && <Loader />}
-      <img
+      <Image
         className={styles.character_img}
         src={src}
         alt={alt}

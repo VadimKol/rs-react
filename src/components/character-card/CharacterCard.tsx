@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import { type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { type Character } from 'rickmortyapi';
 
 import { FavoriteButton } from '../favorite-button/FavoriteButton';
@@ -11,7 +12,7 @@ export function CharacterCard({ character }: { character: Character }): ReactNod
     <div className={styles.card}>
       <ImageBlock src={character.image} alt="Character" />
       <div className={styles.text_container}>
-        <Link to={`character/${character.id}`} className={styles.card_link}>
+        <Link href={`character/${character.id}`} className={styles.card_link}>
           <h2 className={styles.card_title}>{character.name}</h2>
         </Link>
         <FavoriteButton character={character} />

@@ -1,16 +1,18 @@
+import { useRouter } from 'next/router';
 import { type ReactNode } from 'react';
-import { Navigate, useNavigate, useOutletContext } from 'react-router-dom';
 
+// import { Navigate, useNavigate, useOutletContext } from 'react-router-dom';
+import { CustomButton } from '@/components/custom-button/СustomButton';
+import { FavoriteButton } from '@/components/favorite-button/FavoriteButton';
+import { ImageBlock } from '@/components/image-block/ImageBlock';
 import { useGetCharacterQuery } from '@/store/rickmortyApi';
 
-import { CustomButton } from '../custom-button/СustomButton';
-import { FavoriteButton } from '../favorite-button/FavoriteButton';
-import { ImageBlock } from '../image-block/ImageBlock';
 import styles from './styles.module.scss';
 
-export function DetailedCard(): ReactNode {
-  const characterID = useOutletContext<string>();
-  const navigate = useNavigate();
+export function DetailedCard({ characterID }: { characterID: string }): ReactNode {
+  // const characterID = useOutletContext<string>();
+  const { push, replace } = useRouter();
+  // const navigate = useNavigate();
   const { data: character, isFetching: loader, isError, error } = useGetCharacterQuery(Number(characterID));
 
   if (isError) {
@@ -18,7 +20,9 @@ export function DetailedCard(): ReactNode {
   }
 
   if (character === null) {
-    return <Navigate to="*" replace />;
+    // return <Navigate to="*" replace />;
+    replace('*').catch(() => {});
+    return null;
   }
 
   const desc = [
@@ -53,7 +57,14 @@ export function DetailedCard(): ReactNode {
               <FavoriteButton character={character} />
             </div>
           </div>
-          <CustomButton className={styles.close} onClick={() => navigate('/')}>
+          <CustomButton
+            className={styles.close}
+            onClick={
+              () => {
+                push('/').catch(() => {});
+              } /* navigate('/') */
+            }
+          >
             Close
           </CustomButton>
         </>

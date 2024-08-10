@@ -1,8 +1,6 @@
 {
   "extends": "stylelint-config-standard-scss",
-  "plugins": [
-    "stylelint-order"
-  ],
+  "plugins": ["stylelint-order"],
   "rules": {
     "declaration-block-no-redundant-longhand-properties": null,
     "scss/dollar-variable-empty-line-before": null,

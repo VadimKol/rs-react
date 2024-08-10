@@ -1,4 +1,12 @@
-export default {
+import type { Config } from 'jest';
+import nextJest from 'next/jest.js';
+
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+  dir: './',
+});
+
+const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   transform: {
@@ -39,6 +47,8 @@ export default {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   collectCoverage: true,
-  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!jest.config.ts', '!vite.config.ts', '!**/*.d.ts'],
+  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!jest.config.ts', '!next.config.ts', '!**/*.d.ts'],
   coverageReporters: ['text', 'text-summary'],
 };
+
+export default createJestConfig(config);
