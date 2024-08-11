@@ -36,7 +36,7 @@
     background-color: var(--text-color);
     border: none;
     transition: background-color 0.5s;
-    mask-image: url("/src/assets/images/search.svg");
+    mask-image: url("../../assets/images/search.svg");
     mask-size: cover;
 
     &:focus-visible {

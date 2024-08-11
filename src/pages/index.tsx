@@ -1,4 +1,4 @@
-import { type AppProps } from 'next/app';
+// import { type AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { type MouseEventHandler, type ReactNode, /*  useEffect, */ useRef, useState } from 'react';
 
@@ -12,17 +12,18 @@ import { useGetCharactersQuery } from '@/store/rickmortyApi';
 
 import styles from './index.module.scss';
 
-export function Main({ Component }: AppProps): ReactNode {
+export default function Main(/* { Component, pageProps }: AppProps */): ReactNode {
   // const [pageQuery, setPageQuery] = useSearchParams();
-  const { pathname, query, push } = useRouter();
   // const [page, setPage] = useState(Math.floor(Number(pageQuery.get('page'))) || 1);
+  // const { pathname } = useLocation();
+  // const navigate = useNavigate();
+
+  const { pathname, query, push } = useRouter();
   const [page, setPage] = useState(Math.floor(Number(query.page)) || 1);
   const [ls] = useLocalStorage('R&M_search');
   const [character, setCharacter] = useState({ name: ls });
   const searchField = useRef<HTMLInputElement>(null);
-  // const { pathname } = useLocation();
   const characterID = pathname.replace('/character/', '');
-  // const navigate = useNavigate();
   const { data, isFetching: loader, isError, error } = useGetCharactersQuery({ page, character });
   const { characters, totalPages: total } = data || { characters: [], totalPages: 0 };
   const { theme } = useTheme();
@@ -73,7 +74,7 @@ export function Main({ Component }: AppProps): ReactNode {
               handleClose={handleClose}
             />
           )}
-          <Component characterID={characterID} />
+          {/* <Component {...pageProps} characterID={characterID} /> */}
         </div>
       </section>
       <Flyout />

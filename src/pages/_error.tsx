@@ -7,7 +7,7 @@ import { useTheme } from '@/hooks/useTheme';
 
 import styles from './error.module.scss';
 
-export function ErrorPage({ error }: { error: Error & { digest?: string } }): ReactNode {
+export default function ErrorPage({ error }: { error: Error & { digest?: string } }): ReactNode {
   // const error = useRouteError();
   // const [errorMessage, setErrorMessage] = useState<string>();
   const { theme } = useTheme();

@@ -11,14 +11,13 @@ import { Header } from '@/components/header/Header.tsx';
 import { ThemeProvider } from '@/contexts/theme';
 import { store } from '@/store/store';
 
-export function App({ Component }: AppProps): ReactNode {
+export default function App({ Component, pageProps }: AppProps): ReactNode {
   return (
     <>
       <Head>
-        <meta charSet="UTF-8" />
-        <link rel="icon" href="./icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="./apple-icon.png" />
-        <link rel="icon" href="./favicon.ico" />
+        <link rel="icon" href="icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="apple-icon.png" />
+        <link rel="icon" href="favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Rick and Morty</title>
       </Head>
@@ -26,7 +25,7 @@ export function App({ Component }: AppProps): ReactNode {
         <ThemeProvider>
           <Provider store={store}>
             <Header />
-            <Component className="root" />
+            <Component {...pageProps} />
             <Footer />
           </Provider>
         </ThemeProvider>

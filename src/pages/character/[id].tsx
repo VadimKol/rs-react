@@ -9,7 +9,7 @@ import { useGetCharacterQuery } from '@/store/rickmortyApi';
 
 import styles from './styles.module.scss';
 
-export function DetailedCard({ characterID }: { characterID: string }): ReactNode {
+export default function DetailedCard({ characterID }: { characterID: string }): ReactNode {
   // const characterID = useOutletContext<string>();
   const { push, replace } = useRouter();
   // const navigate = useNavigate();

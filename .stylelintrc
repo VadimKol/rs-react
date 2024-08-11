@@ -24,6 +24,7 @@
     "property-no-unknown": true,
     "selector-pseudo-class-no-unknown": true,
     "selector-pseudo-element-no-unknown": true,
+    "selector-id-pattern": null,
     "selector-type-no-unknown": [
       true,
       {
@@ -106,7 +107,7 @@
     "selector-combinator-space-after": "always",
     "selector-combinator-space-before": "always",
     "selector-descendant-combinator-no-non-space": true,
-    "selector-max-id": 0,
+    "selector-max-id": 1,
     "selector-pseudo-class-case": "lower",
     "selector-pseudo-class-parentheses-space-inside": "never",
     "selector-pseudo-element-case": "lower",

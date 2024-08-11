@@ -2,8 +2,15 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
   distDir: './dist',
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'rickandmortyapi.com',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

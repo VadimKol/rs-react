@@ -52,6 +52,7 @@
   text-align: left;
   text-overflow: ellipsis;
   -webkit-line-clamp: 5;
+  line-clamp: 5;
   -webkit-box-orient: vertical;
 }
 
@@ -62,7 +63,7 @@
 .loader {
   width: 265px;
   height: 265px;
-  background-image: url("/src/assets/images/loader.png");
+  background-image: url("../../assets/images/loader.png");
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;

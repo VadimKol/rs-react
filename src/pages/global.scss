@@ -2,7 +2,7 @@
   font-family: "Creepster";
   font-style: normal;
   font-weight: 400;
-  src: url("@/assets/fonts/Creepster-Regular.ttf") format("truetype");
+  src: url("../assets/fonts/Creepster-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -12,8 +12,8 @@
     font-style: $style;
     font-weight: $weight;
     src:
-      url("@/assets/fonts/#{$file_name}.woff2") format("woff2"),
-      url("@/assets/fonts/#{$file_name}.woff") format("woff");
+      url("../assets/fonts/#{$file_name}.woff2") format("woff2"),
+      url("../assets/fonts/#{$file_name}.woff") format("woff");
     font-display: swap;
   }
 }
@@ -43,8 +43,8 @@
   --min-width: 320px;
   --max-width: 1440px;
 
-  --sun: url("./assets/images/sun.svg");
-  --moon: url("./assets/images/moon.svg");
+  --sun: url("../assets/images/sun.svg");
+  --moon: url("../assets/images/moon.svg");
 
   &:has(.light) {
     --text-color: #ffffff;
@@ -59,7 +59,7 @@
   font-family: var(--primary-font);
 }
 
-.root {
+#__next {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;

@@ -9,7 +9,7 @@ import { useTheme } from '@/hooks/useTheme';
 
 import styles from './404.module.scss';
 
-export function NoMatch(): ReactNode {
+export default function NoMatch(): ReactNode {
   // const navigate = useNavigate();
   const { replace } = useRouter();
   const { theme } = useTheme();
