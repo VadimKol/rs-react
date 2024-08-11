@@ -1,8 +1,6 @@
-// import { type AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { type MouseEventHandler, type ReactNode, /*  useEffect, */ useRef, useState } from 'react';
+import { type MouseEventHandler, type ReactNode, useRef, useState } from 'react';
 
-// import { Navigate, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Flyout } from '@/components/flyout/Flyout';
 import { Results } from '@/components/results/Results';
 import { Search } from '@/components/search/Search';
@@ -12,53 +10,38 @@ import { useGetCharactersQuery } from '@/store/rickmortyApi';
 
 import styles from './index.module.scss';
 
-export default function Main(/* { Component, pageProps }: AppProps */): ReactNode {
-  // const [pageQuery, setPageQuery] = useSearchParams();
-  // const [page, setPage] = useState(Math.floor(Number(pageQuery.get('page'))) || 1);
-  // const { pathname } = useLocation();
-  // const navigate = useNavigate();
-
-  const { pathname, query, push } = useRouter();
-  const [page, setPage] = useState(Math.floor(Number(query.page)) || 1);
+export default function Main({ children }: { children?: (characterID: string) => ReactNode }): ReactNode {
+  const { query, push } = useRouter();
+  const page = Math.floor(Number(query.page)) || 1;
   const [ls] = useLocalStorage('R&M_search');
   const [character, setCharacter] = useState({ name: ls });
   const searchField = useRef<HTMLInputElement>(null);
-  const characterID = pathname.replace('/character/', '');
+  const characterID = query.id || '/';
+  // const characterID = typeof window !== 'undefined' ? window.location.pathname.replace('/character/', '') : '/';
   const { data, isFetching: loader, isError, error } = useGetCharactersQuery({ page, character });
   const { characters, totalPages: total } = data || { characters: [], totalPages: 0 };
   const { theme } = useTheme();
-
-  /*   useEffect(() => {
-    if (!pageQuery.get('page')) {
-      setPageQuery({ page: String(page) }, { replace: true });
-    }
-  }, [page, pageQuery, setPageQuery]); */
 
   if (isError) {
     throw error;
   }
 
-  /*   if (characterID !== '/' && (/\D/.test(characterID) || characterID.startsWith('0'))) {
-    return <Navigate to="*" replace />;
+  /*   if (characterID !== '/' && (/\D/.test(String(characterID)) || String(characterID).startsWith('0'))) {
+    // return <Navigate to="*" replace />;
+    replace('*').catch(() => {});
+    return null;
   } */
 
   const handleClose: MouseEventHandler = (e) => {
     if (e.target === e.currentTarget && characterID !== '/') {
-      // navigate('/');
-      push('/').catch(() => {});
+      push({ pathname: '/', query: { page } }).catch(() => {});
     }
   };
 
   return (
     <main className={theme === 'dark' ? 'main' : 'main light'} onClick={handleClose} role="presentation">
       <section onClick={handleClose}>
-        <Search
-          character={character}
-          loader={loader}
-          searchField={searchField}
-          setCharacter={setCharacter}
-          setPage={setPage}
-        />
+        <Search character={character} loader={loader} searchField={searchField} setCharacter={setCharacter} />
       </section>
       <section className={styles.results} onClick={handleClose}>
         <div className={characterID !== '/' ? styles.character : styles.results_box}>
@@ -69,12 +52,11 @@ export default function Main(/* { Component, pageProps }: AppProps */): ReactNod
               characters={characters}
               total={total}
               page={page}
-              setPage={setPage}
-              characterID={characterID}
+              characterID={String(characterID)}
               handleClose={handleClose}
             />
           )}
-          {/* <Component {...pageProps} characterID={characterID} /> */}
+          {children?.(String(characterID))}
         </div>
       </section>
       <Flyout />

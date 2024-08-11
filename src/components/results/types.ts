@@ -5,7 +5,6 @@ export interface ResultsProps {
   characters: Character[];
   total: number;
   page: number;
-  setPage: (page: number) => void;
   characterID: string;
   handleClose: MouseEventHandler;
 }

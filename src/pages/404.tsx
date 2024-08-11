@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { type ReactNode } from 'react';
 
-// import { useNavigate } from 'react-router-dom';
 import error_img from '@/assets/images/404.png';
 import { CustomButton } from '@/components/custom-button/СustomButton';
 import { useTheme } from '@/hooks/useTheme';
@@ -10,7 +9,6 @@ import { useTheme } from '@/hooks/useTheme';
 import styles from './404.module.scss';
 
 export default function NoMatch(): ReactNode {
-  // const navigate = useNavigate();
   const { replace } = useRouter();
   const { theme } = useTheme();
 
@@ -21,7 +19,6 @@ export default function NoMatch(): ReactNode {
         <CustomButton
           className={styles.home}
           onClick={() => {
-            // navigate('/');
             replace('/').catch(() => {});
           }}
         >

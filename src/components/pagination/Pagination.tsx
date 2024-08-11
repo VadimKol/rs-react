@@ -1,14 +1,11 @@
 import { useRouter } from 'next/router';
 import { type ReactNode } from 'react';
 
-// import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { type PaginationProps } from './types';
 
-export function Pagination({ page, total, setPage, handleClose }: PaginationProps): ReactNode {
-  // const [, setPageQuery] = useSearchParams();
-  // const navigate = useNavigate();
-  const { replace } = useRouter();
+export function Pagination({ page, total, handleClose }: PaginationProps): ReactNode {
+  const { push } = useRouter();
 
   let paginationStyles = styles.pagination_box;
   if (!(page - 1)) {
@@ -22,10 +19,7 @@ export function Pagination({ page, total, setPage, handleClose }: PaginationProp
   }
 
   const handlePage = (newPage: number): void => {
-    setPage(newPage);
-    // setPageQuery({ page: String(newPage) });
-    // navigate('/', { replace: true });
-    replace({ pathname: '/', query: { page: String(newPage) } }).catch(() => {});
+    push({ pathname: '/', query: { page: String(newPage) } }).catch(() => {});
   };
 
   return (
