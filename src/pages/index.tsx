@@ -6,27 +6,28 @@ import { Results } from '@/components/results/Results';
 import { Search } from '@/components/search/Search';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useTheme } from '@/hooks/useTheme';
-import { endpoints, getRunningQueriesThunk, useGetCharactersQuery } from '@/store/rickmortyApi';
+import { endpoints, /* getRunningQueriesThunk, */ useGetCharactersQuery } from '@/store/rickmortyApi';
 import { wrapper } from '@/store/store';
 
 import styles from './index.module.scss';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context): Promise<{ props: object }> => {
-  // const search = context.params?.search;
-  const { page, id } = context.query;
+  const { page /* , id */ } = context.query;
+
+  // console.log(context.params, context.resolvedUrl, context.query);
 
   await store.dispatch(
     endpoints.getCharacters.initiate({
       page: Math.floor(Number(page)) || 1,
-      character: { name: '' } /* search?.toString() || */,
+      character: { name: '' }, // search?.toString() ||
     }),
   );
 
-  if (id) {
+  /*   if (!(/\D/.test(String(id)) || String(id).startsWith('0'))) {
     await store.dispatch(endpoints.getCharacter.initiate(Number(id)));
   }
 
-  await Promise.all(store.dispatch(getRunningQueriesThunk()));
+  await Promise.all(store.dispatch(getRunningQueriesThunk())); */
 
   return {
     props: {},

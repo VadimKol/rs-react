@@ -45,7 +45,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/no-absolute-path': 'off',
     'import/extensions': 'off',
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': 'off',
     'no-param-reassign': ['error', { props: false }],
     curly: ['error', 'all'],
     '@typescript-eslint/no-inferrable-types': 'error',
