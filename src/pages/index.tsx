@@ -6,9 +6,32 @@ import { Results } from '@/components/results/Results';
 import { Search } from '@/components/search/Search';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useTheme } from '@/hooks/useTheme';
-import { useGetCharactersQuery } from '@/store/rickmortyApi';
+import { endpoints, getRunningQueriesThunk, useGetCharactersQuery } from '@/store/rickmortyApi';
+import { wrapper } from '@/store/store';
 
 import styles from './index.module.scss';
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context): Promise<{ props: object }> => {
+  // const search = context.params?.search;
+  const { page, id } = context.query;
+
+  await store.dispatch(
+    endpoints.getCharacters.initiate({
+      page: Math.floor(Number(page)) || 1,
+      character: { name: '' } /* search?.toString() || */,
+    }),
+  );
+
+  if (id) {
+    await store.dispatch(endpoints.getCharacter.initiate(Number(id)));
+  }
+
+  await Promise.all(store.dispatch(getRunningQueriesThunk()));
+
+  return {
+    props: {},
+  };
+});
 
 export default function Main({ children }: { children?: (characterID: string) => ReactNode }): ReactNode {
   const { query, push } = useRouter();
@@ -21,6 +44,10 @@ export default function Main({ children }: { children?: (characterID: string) =>
   const { data, isFetching: loader, isError, error } = useGetCharactersQuery({ page, character });
   const { characters, totalPages: total } = data || { characters: [], totalPages: 0 };
   const { theme } = useTheme();
+
+  // const router = useRouter();
+
+  // console.log(router, characterID, page);
 
   if (isError) {
     throw error;

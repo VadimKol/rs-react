@@ -9,9 +9,11 @@ import { ErrorBoundary } from '@/components/error-boundary/ErrorBoundary';
 import { Footer } from '@/components/footer/Footer.tsx';
 import { Header } from '@/components/header/Header.tsx';
 import { ThemeProvider } from '@/contexts/theme';
-import { store } from '@/store/store';
+import { wrapper } from '@/store/store';
 
-export default function App({ Component, pageProps }: AppProps): ReactNode {
+export default function App({ Component, pageProps }: AppProps<object>): ReactNode {
+  const { store } = wrapper.useWrappedStore(pageProps);
+
   return (
     <>
       <Head>

@@ -65,7 +65,12 @@ module.exports = {
         assertionStyle: 'as',
       },
     ],
-    '@typescript-eslint/explicit-function-return-type': 'error',
+    '@typescript-eslint/explicit-function-return-type': [
+      'error',
+      {
+        allowedNames: ['makeStore'],
+      },
+    ],
     '@typescript-eslint/consistent-type-exports': 'error',
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-misused-promises': [
