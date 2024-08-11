@@ -14,7 +14,7 @@ export default function ErrorPage({ error }: { error: Error & { digest?: string 
       <div className={styles.error}>
         <p className={styles.name}>ERROR</p>
         <Image className={styles.error_img} src={error_img} alt="Rick and Morty error" width={500} height={500} />
-        <p className={styles.desc}>{error.message}</p>
+        <p className={styles.desc}>{error?.message}</p>
         <p className={styles.desc}>Please refresh the page</p>
       </div>
     </main>

@@ -1,15 +1,15 @@
 import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 
-import { NoMatch } from '@/components/no-match/NoMatch';
+import NoMatch from '@/pages/404';
+
+jest.mock('next/router', () => ({
+  ...jest.requireActual<object>('next/router'),
+  useRouter: jest.fn().mockImplementation(() => ({ replace: async (): Promise<void> => {} })),
+}));
 
 describe('NoMatch Component', () => {
   it('renders correctly', () => {
-    const { container } = render(
-      <MemoryRouter>
-        <NoMatch />
-      </MemoryRouter>,
-    );
+    const { container } = render(<NoMatch />);
 
     expect(container).toMatchSnapshot();
   });
