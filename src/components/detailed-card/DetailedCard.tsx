@@ -9,7 +9,11 @@ import { useGetCharacterQuery } from '@/store/rickmortyApi';
 import styles from './styles.module.scss';
 
 export default function DetailedCard({ characterID }: { characterID: string }): ReactNode {
-  const { query, push, replace } = useRouter();
+  const {
+    query: { page, search },
+    push,
+    replace,
+  } = useRouter();
   const { data: character, isFetching: loader, isError, error } = useGetCharacterQuery(Number(characterID));
 
   if (isError) {
@@ -17,7 +21,7 @@ export default function DetailedCard({ characterID }: { characterID: string }): 
   }
 
   if (character === null) {
-    replace('*').catch(() => {});
+    replace('*');
     return null;
   }
 
@@ -56,7 +60,7 @@ export default function DetailedCard({ characterID }: { characterID: string }): 
           <CustomButton
             className={styles.close}
             onClick={() => {
-              push({ pathname: '/', query: { page: query.page } }).catch(() => {});
+              push({ pathname: '/', query: { page, search } });
             }}
           >
             Close

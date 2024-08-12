@@ -19,7 +19,7 @@ export default function NoMatch(): ReactNode {
         <CustomButton
           className={styles.home}
           onClick={() => {
-            replace('/').catch(() => {});
+            replace('/');
           }}
         >
           Home page

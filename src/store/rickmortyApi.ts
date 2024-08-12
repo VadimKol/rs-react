@@ -24,9 +24,9 @@ export const rickmortyApi = createApi({
   },
   endpoints: (builder) => ({
     getCharacters: builder.query({
-      queryFn: async ({ page, character }: { page: number; character: { name: string } }) => {
+      queryFn: async ({ page, name }: { page: number; name: string }) => {
         try {
-          const { data, status, statusMessage } = await getCharacters({ page, name: character.name });
+          const { data, status, statusMessage } = await getCharacters({ page, name });
 
           if (status === 200) {
             return { data: { characters: data.results || [], totalPages: data.info?.pages || 0 } };

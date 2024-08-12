@@ -1,14 +1,15 @@
 import { useRouter } from 'next/router';
-import { type ReactNode } from 'react';
-
-import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { type ReactNode, useRef } from 'react';
 
 import styles from './styles.module.scss';
 import type { SearchProps } from './types';
 
-export function Search({ searchField, character, setCharacter, loader }: SearchProps): ReactNode {
-  const [, setLs] = useLocalStorage('R&M_search');
-  const { replace } = useRouter();
+export function Search({ loader }: SearchProps): ReactNode {
+  const {
+    query: { search },
+    replace,
+  } = useRouter();
+  const searchField = useRef<HTMLInputElement>(null);
 
   return (
     <form
@@ -17,9 +18,7 @@ export function Search({ searchField, character, setCharacter, loader }: SearchP
         e.preventDefault();
         if (typeof searchField.current?.value === 'string' && !loader) {
           const searchValue = searchField.current?.value.trim();
-          setCharacter({ name: searchValue });
-          setLs(searchValue);
-          replace({ pathname: '/', query: { page: '1' } }).catch(() => {});
+          replace({ pathname: '/', query: { page: '1', search: searchValue } });
         }
       }}
     >
@@ -29,7 +28,7 @@ export function Search({ searchField, character, setCharacter, loader }: SearchP
         type="text"
         placeholder="Search..."
         ref={searchField}
-        defaultValue={character.name}
+        defaultValue={search}
       />
       <button type="submit" className={styles.search_button} aria-label="Search-button" />
     </form>

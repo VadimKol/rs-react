@@ -1,90 +1,92 @@
 import { useRouter } from 'next/router';
-import { type MouseEventHandler, type ReactNode, useRef, useState } from 'react';
+import { type MouseEventHandler, type ReactNode, useEffect, useState } from 'react';
 
 import { Flyout } from '@/components/flyout/Flyout';
 import { Results } from '@/components/results/Results';
 import { Search } from '@/components/search/Search';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useTheme } from '@/hooks/useTheme';
-import { endpoints, /* getRunningQueriesThunk, */ useGetCharactersQuery } from '@/store/rickmortyApi';
+import { endpoints, useGetCharactersQuery } from '@/store/rickmortyApi';
 import { wrapper } from '@/store/store';
 
 import styles from './index.module.scss';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context): Promise<{ props: object }> => {
-  const { page /* , id */ } = context.query;
-
-  // console.log(context.params, context.resolvedUrl, context.query);
+  const { page, search } = context.query;
 
   await store.dispatch(
     endpoints.getCharacters.initiate({
       page: Math.floor(Number(page)) || 1,
-      character: { name: '' }, // search?.toString() ||
+      name: String(search || ''),
     }),
   );
 
-  /*   if (!(/\D/.test(String(id)) || String(id).startsWith('0'))) {
-    await store.dispatch(endpoints.getCharacter.initiate(Number(id)));
-  }
-
-  await Promise.all(store.dispatch(getRunningQueriesThunk())); */
-
-  return {
-    props: {},
-  };
+  return { props: {} };
 });
 
 export default function Main({ children }: { children?: (characterID: string) => ReactNode }): ReactNode {
-  const { query, push } = useRouter();
+  const { query, push, events, replace } = useRouter();
   const page = Math.floor(Number(query.page)) || 1;
-  const [ls] = useLocalStorage('R&M_search');
-  const [character, setCharacter] = useState({ name: ls });
-  const searchField = useRef<HTMLInputElement>(null);
+  const [ls, setLs] = useLocalStorage('R&M_search');
   const characterID = query.id || '/';
-  // const characterID = typeof window !== 'undefined' ? window.location.pathname.replace('/character/', '') : '/';
-  const { data, isFetching: loader, isError, error } = useGetCharactersQuery({ page, character });
+  const { data, isError, error } = useGetCharactersQuery({ page, name: String(query.search || '') });
   const { characters, totalPages: total } = data || { characters: [], totalPages: 0 };
   const { theme } = useTheme();
+  const [loader, setLoader] = useState(false);
 
-  // const router = useRouter();
-
-  // console.log(router, characterID, page);
+  useEffect(() => {
+    if (query.search !== undefined) {
+      setLs(String(query.search));
+    } else if (ls.length > 0) {
+      replace({ pathname: '/', query: { page, search: ls } });
+    }
+  }, [query, setLs, ls, replace, page]);
 
   if (isError) {
     throw error;
   }
 
-  /*   if (characterID !== '/' && (/\D/.test(String(characterID)) || String(characterID).startsWith('0'))) {
-    // return <Navigate to="*" replace />;
-    replace('*').catch(() => {});
-    return null;
-  } */
-
   const handleClose: MouseEventHandler = (e) => {
     if (e.target === e.currentTarget && characterID !== '/') {
-      push({ pathname: '/', query: { page } }).catch(() => {});
+      push({ pathname: '/', query: { page, search: query.search } });
     }
   };
+
+  useEffect(() => {
+    const RouteChange = (): void => setLoader(true);
+    const RouteComplete = (): void => setLoader(false);
+
+    events.on('routeChangeStart', RouteChange);
+    events.on('routeChangeComplete', RouteComplete);
+    events.on('routeChangeError', RouteComplete);
+
+    return (): void => {
+      events.off('routeChangeStart', RouteChange);
+      events.off('routeChangeComplete', RouteComplete);
+      events.off('routeChangeError', RouteComplete);
+    };
+  }, [events]);
 
   return (
     <main className={theme === 'dark' ? 'main' : 'main light'} onClick={handleClose} role="presentation">
       <section onClick={handleClose}>
-        <Search character={character} loader={loader} searchField={searchField} setCharacter={setCharacter} />
+        <Search loader={loader} />
       </section>
       <section className={styles.results} onClick={handleClose}>
         <div className={characterID !== '/' ? styles.character : styles.results_box}>
           {loader ? (
             <div className={styles.loader} />
           ) : (
-            <Results
-              characters={characters}
-              total={total}
-              page={page}
-              characterID={String(characterID)}
-              handleClose={handleClose}
-            />
+            <>
+              <Results
+                characters={characters}
+                total={total}
+                characterID={String(characterID)}
+                handleClose={handleClose}
+              />
+              {children?.(String(characterID))}
+            </>
           )}
-          {children?.(String(characterID))}
         </div>
       </section>
       <Flyout />

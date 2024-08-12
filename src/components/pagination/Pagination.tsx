@@ -4,8 +4,13 @@ import { type ReactNode } from 'react';
 import styles from './styles.module.scss';
 import { type PaginationProps } from './types';
 
-export function Pagination({ page, total, handleClose }: PaginationProps): ReactNode {
-  const { push } = useRouter();
+export function Pagination({ total, handleClose }: PaginationProps): ReactNode {
+  const {
+    push,
+    query: { page: pageURL, search },
+  } = useRouter();
+
+  const page = Math.floor(Number(pageURL)) || 1;
 
   let paginationStyles = styles.pagination_box;
   if (!(page - 1)) {
@@ -19,7 +24,7 @@ export function Pagination({ page, total, handleClose }: PaginationProps): React
   }
 
   const handlePage = (newPage: number): void => {
-    push({ pathname: '/', query: { page: String(newPage) } }).catch(() => {});
+    push({ pathname: '/', query: { page: String(newPage), search } });
   };
 
   return (

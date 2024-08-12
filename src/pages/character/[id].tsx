@@ -7,14 +7,12 @@ import { wrapper } from '@/store/store';
 import Main from '..';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context): Promise<{ props: object }> => {
-  const { page, id } = context.query;
-
-  // console.log(context.params, context.resolvedUrl, context.query);
+  const { page, search, id } = context.query;
 
   await store.dispatch(
     endpoints.getCharacters.initiate({
       page: Math.floor(Number(page)) || 1,
-      character: { name: '' }, // search?.toString() ||
+      name: String(search || ''),
     }),
   );
 
@@ -24,9 +22,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
 
   await Promise.all(store.dispatch(getRunningQueriesThunk()));
 
-  return {
-    props: {},
-  };
+  return { props: {} };
 });
 
 export default function WithDetails(): ReactNode {
