@@ -1,52 +1,29 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useState } from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import mockRouter from 'next-router-mock';
 
 import { Pagination } from '@/components/pagination/Pagination';
-
-let mockSearchParam = new URLSearchParams('');
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual<object>('react-router-dom'),
-  useSearchParams: (): [URLSearchParams, (newParams: URLSearchParams) => void] => {
-    const [params, setParams] = useState(mockSearchParam);
-    return [
-      params,
-      (newParams: URLSearchParams): void => {
-        mockSearchParam = newParams;
-        setParams(newParams);
-      },
-    ];
-  },
-}));
 
 describe('Pagination Component', () => {
   const user = userEvent.setup();
 
   it('renders correctly', () => {
-    const { container } = render(
-      <MemoryRouter>
-        <Pagination page={1} total={2} setPage={jest.fn} handleClose={jest.fn} />
-      </MemoryRouter>,
-    );
+    const { container } = render(<Pagination total={2} handleClose={jest.fn} />);
 
     expect(container).toMatchSnapshot();
   });
 
   it('should change page query params', async () => {
-    render(
-      <MemoryRouter>
-        <Pagination page={2} total={3} setPage={jest.fn} handleClose={jest.fn} />
-      </MemoryRouter>,
-    );
+    mockRouter.push({ pathname: '/', query: { page: '2', search: 'Rick' } });
+
+    render(<Pagination total={3} handleClose={jest.fn} />);
 
     const buttonRight = screen.getByRole('button', { name: 'Right' });
     const buttonLeft = screen.getByRole('button', { name: 'Left' });
 
     await user.click(buttonRight);
-    expect(mockSearchParam).toEqual({ page: '3' });
+    expect(mockRouter).toMatchObject({ pathname: '/', query: { page: '3', search: 'Rick' } });
     await user.click(buttonLeft);
-    expect(mockSearchParam).toEqual({ page: '1' });
+    expect(mockRouter).toMatchObject({ pathname: '/', query: { page: '2', search: 'Rick' } });
   });
 });

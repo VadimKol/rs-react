@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NoMatch Component renders correctly 1`] = `
+exports[`NoMatch or 404 page renders correctly 1`] = `
 <div>
   <main
     class="main"
@@ -8,8 +8,13 @@ exports[`NoMatch Component renders correctly 1`] = `
     <img
       alt="404 error"
       class="error_img"
+      data-nimg="1"
+      decoding="async"
       height="490"
-      src="stub-test"
+      loading="lazy"
+      src="/_next/image?url=%2Fimg.jpg&w=1080&q=75"
+      srcset="/_next/image?url=%2Fimg.jpg&w=640&q=75 1x, /_next/image?url=%2Fimg.jpg&w=1080&q=75 2x"
+      style="color: transparent;"
       width="490"
     />
     <div

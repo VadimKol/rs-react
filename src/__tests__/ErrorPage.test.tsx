@@ -1,20 +1,10 @@
 import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 
-import { ErrorPage } from '@/components/error/ErrorPage';
+import ErrorPage from '@/pages/_error';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual<object>('react-router-dom'),
-  useRouteError: jest.fn(),
-}));
-
-describe('ErrorPage Component', () => {
+describe('Error page', () => {
   it('renders correctly', () => {
-    const { container } = render(
-      <MemoryRouter>
-        <ErrorPage />
-      </MemoryRouter>,
-    );
+    const { container } = render(<ErrorPage error={new Error('Some error')} />);
 
     expect(container).toMatchSnapshot();
   });

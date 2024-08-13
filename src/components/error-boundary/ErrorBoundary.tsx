@@ -1,6 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
-import { ErrorPage } from '../error/ErrorPage';
+import ErrorPage from '@/pages/_error';
+
 import type { ErrorProps, ErrorState } from './types';
 
 export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
@@ -9,8 +10,8 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
     this.state = { hasError: false };
   }
 
-  public static getDerivedStateFromError(): ErrorState {
-    return { hasError: true };
+  public static getDerivedStateFromError(error: Error): ErrorState {
+    return { hasError: true, error };
   }
 
   public componentDidCatch(_: Error, info: ErrorInfo): void {
@@ -19,9 +20,9 @@ export class ErrorBoundary extends Component<ErrorProps, ErrorState> {
   }
 
   public render(): ReactNode {
-    const { hasError } = this.state;
+    const { hasError, error } = this.state;
     const { children } = this.props;
 
-    return hasError ? <ErrorPage /> : children;
+    return hasError ? <ErrorPage error={error || new Error('Something went wrong')} /> : children;
   }
 }

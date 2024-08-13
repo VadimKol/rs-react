@@ -1,8 +1,6 @@
 import { type Character } from 'rickmortyapi';
 
 export const charactersToCsv = (characters: Character[]): string => {
-  const { origin } = window.location;
-
   const temp = characters.map((character) => ({
     name: character.name,
     species: character.species,
@@ -11,7 +9,7 @@ export const charactersToCsv = (characters: Character[]): string => {
     origin: character.origin.name,
     location: character.location.name,
     episodes: character.episode.map((episode) => episode.replace(/\D/g, '')).join(', '),
-    url: `${origin}/character/${character.id}`,
+    url: character.url,
   }));
 
   const csvRows = [];

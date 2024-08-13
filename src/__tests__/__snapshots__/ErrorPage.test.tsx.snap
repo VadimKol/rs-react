@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorPage Component renders correctly 1`] = `
+exports[`Error page renders correctly 1`] = `
 <div>
   <main
     class="main"
@@ -16,13 +16,20 @@ exports[`ErrorPage Component renders correctly 1`] = `
       <img
         alt="Rick and Morty error"
         class="error_img"
+        data-nimg="1"
+        decoding="async"
         height="500"
-        src="stub-test"
+        loading="lazy"
+        src="/_next/image?url=%2Fimg.jpg&w=1080&q=75"
+        srcset="/_next/image?url=%2Fimg.jpg&w=640&q=75 1x, /_next/image?url=%2Fimg.jpg&w=1080&q=75 2x"
+        style="color: transparent;"
         width="500"
       />
       <p
         class="desc"
-      />
+      >
+        Some error
+      </p>
       <p
         class="desc"
       >

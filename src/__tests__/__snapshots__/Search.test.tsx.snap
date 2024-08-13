@@ -10,7 +10,7 @@ exports[`Search Component renders correctly 1`] = `
       id="search"
       placeholder="Search..."
       type="text"
-      value="Rick"
+      value=""
     />
     <button
       aria-label="Search-button"

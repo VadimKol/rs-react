@@ -1,15 +1,10 @@
 import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 
-import { NoMatch } from '@/components/no-match/NoMatch';
+import NoMatch from '@/pages/404';
 
-describe('NoMatch Component', () => {
+describe('NoMatch or 404 page', () => {
   it('renders correctly', () => {
-    const { container } = render(
-      <MemoryRouter>
-        <NoMatch />
-      </MemoryRouter>,
-    );
+    const { container } = render(<NoMatch />);
 
     expect(container).toMatchSnapshot();
   });

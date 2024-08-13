@@ -1,15 +1,15 @@
-import { type ReactNode } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-
-import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useRouter } from 'next/router';
+import { type ReactNode, useRef } from 'react';
 
 import styles from './styles.module.scss';
 import type { SearchProps } from './types';
 
-export function Search({ searchField, character, setCharacter, setPage, loader }: SearchProps): ReactNode {
-  const [, setPageQuery] = useSearchParams();
-  const [, setLs] = useLocalStorage('R&M_search');
-  const navigate = useNavigate();
+export function Search({ loader }: SearchProps): ReactNode {
+  const {
+    query: { search },
+    replace,
+  } = useRouter();
+  const searchField = useRef<HTMLInputElement>(null);
 
   return (
     <form
@@ -18,11 +18,7 @@ export function Search({ searchField, character, setCharacter, setPage, loader }
         e.preventDefault();
         if (typeof searchField.current?.value === 'string' && !loader) {
           const searchValue = searchField.current?.value.trim();
-          setCharacter({ name: searchValue });
-          setLs(searchValue);
-          setPage(1);
-          setPageQuery({ page: '1' });
-          navigate('/', { replace: true });
+          replace({ pathname: '/', query: { page: '1', search: searchValue } });
         }
       }}
     >
@@ -32,7 +28,7 @@ export function Search({ searchField, character, setCharacter, setPage, loader }
         type="text"
         placeholder="Search..."
         ref={searchField}
-        defaultValue={character.name}
+        defaultValue={search}
       />
       <button type="submit" className={styles.search_button} aria-label="Search-button" />
     </form>
