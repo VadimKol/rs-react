@@ -20,19 +20,3 @@
   gap: 30px;
   justify-content: space-between;
 }
-
-.loader {
-  flex-grow: 1;
-  width: 100%;
-  background-image: url("../assets/images/loader.png");
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  animation: loader 1s infinite linear;
-}
-
-@keyframes loader {
-  to {
-    transform: rotate(1turn);
-  }
-}

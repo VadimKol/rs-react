@@ -16,7 +16,7 @@
     "stylelint:fix": "stylelint ./src/**/*.{css,scss} --fix --quiet-deprecation-warnings",
     "test": "jest",
     "prepare": "husky",
-    "deploy": "npm run build && npx gh-pages -d dist -e nextjs-ssr-pages-api"
+    "deploy": "npm run build && npx gh-pages -d dist -e nextjs-ssr-app-router-api"
   },
   "repository": {
     "type": "git",
@@ -39,7 +39,6 @@
     "@reduxjs/toolkit": "^2.2.6",
     "classnames": "^2.5.1",
     "next": "^14.2.5",
-    "next-redux-wrapper": "^8.1.0",
     "next-router-mock": "^0.9.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

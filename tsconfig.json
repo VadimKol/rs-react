@@ -2,10 +2,17 @@
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "preserve",
     "skipLibCheck": true,
-    "types": ["@testing-library/jest-dom","@testing-library/jest-dom/jest-globals"],
+    "types": [
+      "@testing-library/jest-dom",
+      "@testing-library/jest-dom/jest-globals"
+    ],
     "esModuleInterop": true,
     "moduleDetection": "force",
     "moduleResolution": "bundler",
@@ -19,13 +26,30 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": "",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx","jest.config.ts","next-env.d.ts","next.config.mjs"],
-  "exclude": ["node_modules", "dist"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "jest.config.ts",
+    "next-env.d.ts",
+    "next.config.mjs",
+    "./dist/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

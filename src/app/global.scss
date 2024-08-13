@@ -59,7 +59,7 @@
   font-family: var(--primary-font);
 }
 
-#__next {
+.root {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;

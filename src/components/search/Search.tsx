@@ -1,14 +1,12 @@
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { type ReactNode, useRef } from 'react';
 
 import styles from './styles.module.scss';
 import type { SearchProps } from './types';
 
 export function Search({ loader }: SearchProps): ReactNode {
-  const {
-    query: { search },
-    replace,
-  } = useRouter();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const searchField = useRef<HTMLInputElement>(null);
 
   return (
@@ -18,7 +16,7 @@ export function Search({ loader }: SearchProps): ReactNode {
         e.preventDefault();
         if (typeof searchField.current?.value === 'string' && !loader) {
           const searchValue = searchField.current?.value.trim();
-          replace({ pathname: '/', query: { page: '1', search: searchValue } });
+          router.push(`/?page=1&search=${searchValue}`);
         }
       }}
     >
@@ -28,7 +26,7 @@ export function Search({ loader }: SearchProps): ReactNode {
         type="text"
         placeholder="Search..."
         ref={searchField}
-        defaultValue={search}
+        defaultValue={searchParams.get('search') || ''}
       />
       <button type="submit" className={styles.search_button} aria-label="Search-button" />
     </form>

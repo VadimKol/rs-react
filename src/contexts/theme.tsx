@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, type ReactNode, useCallback, useMemo, useState } from 'react';
 
 export const ThemeContext = createContext({

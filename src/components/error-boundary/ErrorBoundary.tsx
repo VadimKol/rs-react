@@ -1,6 +1,8 @@
+'use client';
+
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
-import ErrorPage from '@/pages/_error';
+import ErrorPage from '@/app/error';
 
 import type { ErrorProps, ErrorState } from './types';
 

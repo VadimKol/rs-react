@@ -1,27 +1,23 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 import { type ReactNode } from 'react';
+import { type Character } from 'rickmortyapi';
 
 import { CustomButton } from '@/components/custom-button/СustomButton';
 import { FavoriteButton } from '@/components/favorite-button/FavoriteButton';
 import { ImageBlock } from '@/components/image-block/ImageBlock';
-import { useGetCharacterQuery } from '@/store/rickmortyApi';
 
 import styles from './styles.module.scss';
 
-export function DetailedCard({ characterID }: { characterID: string }): ReactNode {
-  const {
-    query: { page, search },
-    push,
-    replace,
-  } = useRouter();
-  const { data: character, isFetching: loader, isError, error } = useGetCharacterQuery(Number(characterID));
-
-  if (isError) {
-    throw error;
-  }
+export function DetailedCard({ character }: { character: Character | null }): ReactNode {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const page = Math.floor(Number(searchParams.get('page'))) || 1;
+  const search = searchParams.get('search') || '';
 
   if (character === null) {
-    replace('*');
+    router.replace('*');
     return null;
   }
 
@@ -35,38 +31,27 @@ export function DetailedCard({ characterID }: { characterID: string }): ReactNod
 
   return (
     <section className={styles.detailed_Card}>
-      {loader ? (
-        <div className={styles.loader} />
-      ) : (
-        <>
-          <div className={styles.card}>
-            <ImageBlock src={character?.image || ''} alt="Character" />
-            <div className={styles.text_container}>
-              <h2 className={styles.card_title}>{character?.name}</h2>
-              <ul className={styles.desc}>
-                {desc.map((item) => (
-                  <li key={item} className={styles.desc_item}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              {character?.type !== '' && <p className={styles.type}>Type: {character?.type}</p>}
-              <p className={styles.episodes}>
-                Episodes: {character?.episode.map((episode) => episode.replace(/\D/g, '')).join(', ')}
-              </p>
-              <FavoriteButton character={character} />
-            </div>
-          </div>
-          <CustomButton
-            className={styles.close}
-            onClick={() => {
-              push({ pathname: '/', query: { page, search } });
-            }}
-          >
-            Close
-          </CustomButton>
-        </>
-      )}
+      <div className={styles.card}>
+        <ImageBlock src={character?.image || ''} alt="Character" />
+        <div className={styles.text_container}>
+          <h2 className={styles.card_title}>{character?.name}</h2>
+          <ul className={styles.desc}>
+            {desc.map((item) => (
+              <li key={item} className={styles.desc_item}>
+                {item}
+              </li>
+            ))}
+          </ul>
+          {character?.type !== '' && <p className={styles.type}>Type: {character?.type}</p>}
+          <p className={styles.episodes}>
+            Episodes: {character?.episode.map((episode) => episode.replace(/\D/g, '')).join(', ')}
+          </p>
+          <FavoriteButton character={character} />
+        </div>
+      </div>
+      <CustomButton className={styles.close} onClick={() => router.push(`/?page=${page}&search=${search}`)}>
+        Close
+      </CustomButton>
     </section>
   );
 }
