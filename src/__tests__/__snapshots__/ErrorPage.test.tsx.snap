@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorPage Component renders correctly 1`] = `
+exports[`Error page renders correctly 1`] = `
 <div>
   <main
     class="main"

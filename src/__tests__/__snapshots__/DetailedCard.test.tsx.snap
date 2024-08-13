@@ -16,9 +16,15 @@ exports[`DetailedCard Component renders correctly 1`] = `
         />
         <img
           alt="Character"
-          class="character_img"
-          src=""
-          style="display: none;"
+          class="hidden"
+          data-nimg="1"
+          decoding="async"
+          height="300"
+          loading="lazy"
+          src="/_next/image?url=https%3A%2F%2Frickandmortyapi.com%2Fapi%2Fcharacter%2Favatar%2F1.jpeg&w=640&q=75"
+          srcset="/_next/image?url=https%3A%2F%2Frickandmortyapi.com%2Fapi%2Fcharacter%2Favatar%2F1.jpeg&w=384&q=75 1x, /_next/image?url=https%3A%2F%2Frickandmortyapi.com%2Fapi%2Fcharacter%2Favatar%2F1.jpeg&w=640&q=75 2x"
+          style="color: transparent;"
+          width="300"
         />
       </div>
       <div

@@ -1,43 +1,23 @@
-/* import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { type Character } from 'rickmortyapi';
 
 import { CharacterCard } from '@/components/character-card/CharacterCard';
-import { store } from '@/store/store';
+import { makeStore } from '@/store/store';
 
-const character: Character = {
-  id: 1,
-  name: 'Rick',
-  url: '',
-  created: '',
-  status: 'Alive',
-  species: '',
-  type: '',
-  gender: 'Male',
-  origin: {
-    name: '',
-    url: '',
-  },
-  location: {
-    name: '',
-    url: '',
-  },
-  image: '',
-  episode: [],
-};
+import { character } from './__mocks__/data';
+
+const store = makeStore();
 
 describe('CharacterCard Component', () => {
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
     const { container } = render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <CharacterCard character={character} />
-        </Provider>
-      </MemoryRouter>,
+      <Provider store={store}>
+        <CharacterCard character={character} />
+      </Provider>,
     );
 
-    expect(container).toMatchSnapshot();
+    await waitFor(() => {
+      expect(container).toMatchSnapshot();
+    });
   });
 });
- */

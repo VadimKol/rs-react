@@ -17,7 +17,7 @@ export function CharacterCard({ character }: { character: Character }): ReactNod
       <ImageBlock src={character.image} alt="Character" />
       <div className={styles.text_container}>
         <Link
-          href={`/character/${character.id}?page=${String(page || '1')}&search=${String(search)}`}
+          href={`/character/${character.id}?page=${String(page || '1')}&search=${String(search || '')}`}
           className={styles.card_link}
         >
           <h2 className={styles.card_title}>{character.name}</h2>

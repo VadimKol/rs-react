@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import DetailedCard from '@/components/detailed-card/DetailedCard';
+import { DetailedCard } from '@/components/detailed-card/DetailedCard';
 import { endpoints, getRunningQueriesThunk } from '@/store/rickmortyApi';
 import { wrapper } from '@/store/store';
 

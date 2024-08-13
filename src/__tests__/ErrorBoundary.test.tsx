@@ -2,11 +2,6 @@ import { render, screen } from '@testing-library/react';
 
 import { ErrorBoundary } from '@/components/error-boundary/ErrorBoundary';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual<object>('react-router-dom'),
-  useRouteError: jest.fn(),
-}));
-
 describe('ErrorBoundary component', () => {
   const c = console;
   c.error = jest.fn();

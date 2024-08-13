@@ -1,61 +1,29 @@
-/* import { render, waitFor } from '@testing-library/react';
-import { useState } from 'react';
+import { render, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
-import { Main } from '@/components/main/Main';
-import { useGetCharactersQuery } from '@/store/rickmortyApi';
-import { store } from '@/store/store';
+import Main from '@/pages';
+import { makeStore } from '@/store/store';
+
+import { characters } from './__mocks__/data';
 
 global.URL.createObjectURL = jest.fn();
 global.URL.revokeObjectURL = jest.fn();
 
-global.URLSearchParams = jest.fn().mockImplementation(() => ({
-  get: jest.fn(() => 'mockedValue'),
-}));
-
-let mockSearchParam = new URLSearchParams('');
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual<object>('react-router-dom'),
-  useSearchParams: (): [URLSearchParams, (newParams: URLSearchParams) => void] => {
-    const [params, setParams] = useState(mockSearchParam);
-    return [
-      params,
-      (newParams: URLSearchParams): void => {
-        mockSearchParam = newParams;
-        setParams(newParams);
-      },
-    ];
-  },
-}));
-
 jest.mock('@/store/rickmortyApi', () => ({
   ...jest.requireActual<object>('@/store/rickmortyApi'),
-  useGetCharactersQuery: jest.fn(),
+  useGetCharactersQuery: jest.fn(() => ({ data: { characters, totalPages: 1 }, isError: false, error: undefined })),
 }));
 
-const mockUseGetCharactersQuery = useGetCharactersQuery as jest.Mock;
+const store = makeStore();
 
-describe('Main Component', () => {
+describe('Main page', () => {
   it('renders correctly', async () => {
-    mockUseGetCharactersQuery.mockReturnValue({
-      data: { characters: [], totalPages: 0 },
-      isFetching: false,
-      isError: false,
-      error: undefined,
-    });
     const { container } = render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <Main />
-        </Provider>
-      </MemoryRouter>,
+      <Provider store={store}>
+        <Main />
+      </Provider>,
     );
 
-    await waitFor(() => {
-      expect(container).toMatchSnapshot();
-    });
+    await waitFor(() => expect(container).toMatchSnapshot());
   });
 });
- */

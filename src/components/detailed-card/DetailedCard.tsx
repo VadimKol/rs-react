@@ -8,7 +8,7 @@ import { useGetCharacterQuery } from '@/store/rickmortyApi';
 
 import styles from './styles.module.scss';
 
-export default function DetailedCard({ characterID }: { characterID: string }): ReactNode {
+export function DetailedCard({ characterID }: { characterID: string }): ReactNode {
   const {
     query: { page, search },
     push,

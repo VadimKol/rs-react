@@ -1,33 +1,33 @@
-/* import { render, screen } from '@testing-library/react';
-import { type ReactNode } from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { type Router } from 'next/router';
+import mockRouter from 'next-router-mock';
 
-import { App } from '@/App';
+import Main from '@/pages';
+import App from '@/pages/_app';
 
-jest.mock('@/components/header/Header.tsx', () => ({
-  Header: (): ReactNode => <div data-testid="header">Header</div>,
+import { characters } from './__mocks__/data';
+
+global.URL.createObjectURL = jest.fn();
+global.URL.revokeObjectURL = jest.fn();
+
+jest.mock('@/store/rickmortyApi', () => ({
+  ...jest.requireActual<object>('@/store/rickmortyApi'),
+  useGetCharactersQuery: jest.fn(() => ({ data: { characters, totalPages: 1 }, isError: false, error: undefined })),
 }));
 
-jest.mock('@/components/footer/Footer.tsx', () => ({
-  Footer: (): ReactNode => <div data-testid="footer">Footer</div>,
+jest.mock('@/store/favoritesSlice', () => ({
+  ...jest.requireActual<object>('@/store/favoritesSlice'),
+  useFavorites: jest.fn(() => characters),
 }));
 
 describe('App Component', () => {
-  it('renders correctly', () => {
-    const routerConfig = createRoutesFromElements(
-      <Route path="/" element={<App />}>
-        <Route path="/" element={<div data-testid="outlet">Main Content</div>} />
-      </Route>,
-    );
+  it('renders correctly', async () => {
+    mockRouter.push('/');
+    render(<App Component={() => <Main />} pageProps={{}} router={{} as Router} />);
 
-    const router = createMemoryRouter(routerConfig, {
-      initialEntries: ['/'],
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Theme switcher' })).toBeInTheDocument();
+      expect(screen.getAllByRole('presentation')).toHaveLength(2);
     });
-
-    render(<RouterProvider router={router} />);
-
-    expect(screen.getByTestId('header')).toBeInTheDocument();
-    expect(screen.getByTestId('outlet')).toBeInTheDocument();
-    expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 });
- */
