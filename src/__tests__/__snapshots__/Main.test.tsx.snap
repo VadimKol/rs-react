@@ -28,10 +28,10 @@ exports[`Main page renders correctly 1`] = `
       class="results"
     >
       <div
-        class="results_box"
+        class="character"
       >
         <div
-          class="no_character"
+          class="results"
         >
           <ul
             class="characters"

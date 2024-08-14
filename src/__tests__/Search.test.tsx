@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import mockRouter from 'next-router-mock';
 
 import { Search } from '@/components/search/Search';
+
+import { mockRouterPush } from './setupAfterEnv';
 
 describe('Search Component', () => {
   const user = userEvent.setup();
@@ -14,8 +15,6 @@ describe('Search Component', () => {
   });
 
   it('checks search value in URL', async () => {
-    mockRouter.push({ pathname: '/', query: {} });
-
     render(<Search loader={false} />);
 
     const buttonSearch = screen.getByRole('button', { name: 'Search-button' });
@@ -24,6 +23,6 @@ describe('Search Component', () => {
     await user.type(inputSearch, 'Rick');
     await user.click(buttonSearch);
 
-    expect(mockRouter).toMatchObject({ pathname: '/', query: { search: 'Rick' } });
+    expect(mockRouterPush).toHaveBeenCalledWith(`/?page=1&search=Rick`);
   });
 });

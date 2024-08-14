@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import NoMatch from '@/app/not-found';
+import Loading from '@/app/loading';
 
-describe('NoMatch or 404 page', () => {
+describe('Header Component', () => {
   it('renders correctly', () => {
-    const { container } = render(<NoMatch />);
+    const { container } = render(<Loading />);
 
     expect(container).toMatchSnapshot();
   });

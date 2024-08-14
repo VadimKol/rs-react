@@ -1,27 +1,22 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { render, screen } from '@testing-library/react';
 
 import { Results } from '@/components/results/Results';
-import { makeStore } from '@/store/store';
+import { StoreProvider } from '@/store/StoreProvider';
 
 import { characters } from './__mocks__/data';
 
-const store = makeStore();
-
 describe('Results Component', () => {
-  it('renders Rick and Morty', async () => {
+  it('renders Rick and Morty', () => {
     render(
-      <Provider store={store}>
+      <StoreProvider>
         <Results characters={characters} total={2} characterID="1" handleClose={jest.fn} />
-      </Provider>,
+      </StoreProvider>,
     );
 
-    await waitFor(() => {
-      expect(screen.getByText('Rick')).toBeInTheDocument();
-      expect(screen.getByText('Morty')).toBeInTheDocument();
-      expect(screen.getByText('1')).toBeInTheDocument();
-      expect(screen.getByText('2')).toBeInTheDocument();
-    });
+    expect(screen.getByText('Rick')).toBeInTheDocument();
+    expect(screen.getByText('Morty')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
   });
 
   it('renders characters not found', () => {

@@ -1,23 +1,18 @@
-import { render, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
 
 import { CharacterCard } from '@/components/character-card/CharacterCard';
-import { makeStore } from '@/store/store';
+import { StoreProvider } from '@/store/StoreProvider';
 
 import { character } from './__mocks__/data';
 
-const store = makeStore();
-
 describe('CharacterCard Component', () => {
-  it('renders correctly', async () => {
+  it('renders correctly', () => {
     const { container } = render(
-      <Provider store={store}>
+      <StoreProvider>
         <CharacterCard character={character} />
-      </Provider>,
+      </StoreProvider>,
     );
 
-    await waitFor(() => {
-      expect(container).toMatchSnapshot();
-    });
+    expect(container).toMatchSnapshot();
   });
 });

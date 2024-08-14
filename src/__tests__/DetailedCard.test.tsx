@@ -1,26 +1,46 @@
-import { render, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { DetailedCard } from '@/components/detailed-card/DetailedCard';
-import { makeStore } from '@/store/store';
+import { StoreProvider } from '@/store/StoreProvider';
 
 import { character } from './__mocks__/data';
-
-jest.mock('@/store/rickmortyApi', () => ({
-  ...jest.requireActual<object>('@/store/rickmortyApi'),
-  useGetCharacterQuery: jest.fn(() => ({ data: character, isFetching: false, isError: false, error: undefined })),
-}));
-
-const store = makeStore();
+import { mockRouterPush } from './setupAfterEnv';
 
 describe('DetailedCard Component', () => {
-  it('renders correctly', async () => {
+  const user = userEvent.setup();
+
+  it('renders correctly', () => {
     const { container } = render(
-      <Provider store={store}>
-        <DetailedCard characterID="1" />
-      </Provider>,
+      <StoreProvider>
+        <DetailedCard character={character} />
+      </StoreProvider>,
     );
 
-    await waitFor(() => expect(container).toMatchSnapshot());
+    expect(container).toMatchSnapshot();
+  });
+
+  it('changes URL when click on Close button', async () => {
+    render(
+      <StoreProvider>
+        <DetailedCard character={character} />
+      </StoreProvider>,
+    );
+
+    const buttonSearch = screen.getByText('Close');
+
+    await user.click(buttonSearch);
+
+    expect(mockRouterPush).toHaveBeenCalledWith(`/?page=1&search=`);
+  });
+
+  it('did not render when person is not specified', () => {
+    const { container } = render(
+      <StoreProvider>
+        <DetailedCard character={null} />
+      </StoreProvider>,
+    );
+
+    expect(container).toBeEmptyDOMElement();
   });
 });

@@ -46,7 +46,14 @@ const config: Config = {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   collectCoverage: true,
-  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!jest.config.ts', '!next.config.ts', '!**/*.d.ts'],
+  collectCoverageFrom: [
+    '**/*.{ts,tsx}',
+    '!**/node_modules/**',
+    '!jest.config.ts',
+    '!next.config.ts',
+    '!**/*.d.ts',
+    '!**/dist/**',
+  ],
   coverageReporters: ['text', 'text-summary'],
 };
 

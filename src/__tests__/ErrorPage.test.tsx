@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import ErrorPage from '@/pages/_error';
+import ErrorPage from '@/app/error';
 
 describe('Error page', () => {
   it('renders correctly', () => {
