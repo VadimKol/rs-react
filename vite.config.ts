@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import checker from 'vite-plugin-checker';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { defineConfig } from 'vitest/config';
+import { coverageConfigDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [
@@ -30,9 +30,7 @@ export default defineConfig({
   },
   test: {
     coverage: {
-      exclude: ['src/tests/**/*', '**/types.ts', '**/*.d.ts'],
-      extension: ['.ts', '.tsx'],
-      include: ['src/**/*'],
+      exclude: [...coverageConfigDefaults.exclude, '**/types.ts', 'postcss.config.cjs', '**/mocks/**'],
       reporter: ['text', 'text-summary'],
     },
     environment: 'jsdom',
