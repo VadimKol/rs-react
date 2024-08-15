@@ -30,14 +30,11 @@ export default defineConfig({
   },
   test: {
     coverage: {
-      all: true,
       exclude: ['src/tests/**/*', '**/types.ts', '**/*.d.ts'],
       extension: ['.ts', '.tsx'],
       include: ['src/**/*'],
-      provider: 'v8',
       reporter: ['text', 'text-summary'],
     },
-    css: false,
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/tests/setuptests.ts'],
