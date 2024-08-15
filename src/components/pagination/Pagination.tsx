@@ -1,5 +1,5 @@
+import { useNavigate, useSearchParams } from '@remix-run/react';
 import { type ReactNode } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import { type PaginationProps } from './types';

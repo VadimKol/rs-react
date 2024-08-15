@@ -1,5 +1,5 @@
+import { useNavigate } from '@remix-run/react';
 import { type ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import error_img from '@/assets/images/404.png';
 import { useTheme } from '@/hooks/useTheme';

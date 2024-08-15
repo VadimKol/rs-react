@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+/* import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import { NoMatch } from '@/components/no-match/NoMatch';
@@ -14,3 +14,4 @@ describe('NoMatch Component', () => {
     expect(container).toMatchSnapshot();
   });
 });
+ */

@@ -6,6 +6,7 @@ import type { ImageBlockProps } from './types';
 
 export function ImageBlock({ src, alt }: ImageBlockProps): ReactNode {
   const [isImageLoading, setIsImageLoading] = useState(true);
+
   return (
     <div className={styles.image_container}>
       {isImageLoading && <Loader />}

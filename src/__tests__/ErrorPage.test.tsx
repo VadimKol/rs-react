@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+/* import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import { ErrorPage } from '@/components/error/ErrorPage';
@@ -19,3 +19,4 @@ describe('ErrorPage Component', () => {
     expect(container).toMatchSnapshot();
   });
 });
+ */

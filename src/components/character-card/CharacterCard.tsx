@@ -1,5 +1,5 @@
+import { Link } from '@remix-run/react';
 import { type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import { type Character } from 'rickmortyapi';
 
 import { FavoriteButton } from '../favorite-button/FavoriteButton';

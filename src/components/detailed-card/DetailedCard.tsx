@@ -1,5 +1,5 @@
+import { useNavigate } from '@remix-run/react';
 import { type ReactNode } from 'react';
-import { Navigate, useNavigate, useOutletContext } from 'react-router-dom';
 
 import { useGetCharacterQuery } from '@/store/rickmortyApi';
 
@@ -8,8 +8,7 @@ import { FavoriteButton } from '../favorite-button/FavoriteButton';
 import { ImageBlock } from '../image-block/ImageBlock';
 import styles from './styles.module.scss';
 
-export function DetailedCard(): ReactNode {
-  const characterID = useOutletContext<string>();
+export function DetailedCard({ characterID }: { characterID: string }): ReactNode {
   const navigate = useNavigate();
   const { data: character, isFetching: loader, isError, error } = useGetCharacterQuery(Number(characterID));
 
@@ -18,7 +17,8 @@ export function DetailedCard(): ReactNode {
   }
 
   if (character === null) {
-    return <Navigate to="*" replace />;
+    navigate('*', { replace: true });
+    return null;
   }
 
   const desc = [

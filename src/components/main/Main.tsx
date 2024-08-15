@@ -1,5 +1,5 @@
 import { type MouseEventHandler, type ReactNode, useEffect, useRef, useState } from 'react';
-import { Navigate, Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useTheme } from '@/hooks/useTheme';
@@ -10,7 +10,7 @@ import { Results } from '../results/Results';
 import { Search } from '../search/Search';
 import styles from './styles.module.scss';
 
-export function Main(): ReactNode {
+export function Main({ children }: { children?: (characterID: string) => ReactNode }): ReactNode {
   const [pageQuery, setPageQuery] = useSearchParams();
   const [page, setPage] = useState(Math.floor(Number(pageQuery.get('page'))) || 1);
   const [ls] = useLocalStorage('R&M_search');
@@ -59,16 +59,18 @@ export function Main(): ReactNode {
           {loader ? (
             <div className={styles.loader} />
           ) : (
-            <Results
-              characters={characters}
-              total={total}
-              page={page}
-              setPage={setPage}
-              characterID={characterID}
-              handleClose={handleClose}
-            />
+            <>
+              <Results
+                characters={characters}
+                total={total}
+                page={page}
+                setPage={setPage}
+                characterID={characterID}
+                handleClose={handleClose}
+              />
+              {children?.(characterID)}
+            </>
           )}
-          <Outlet context={characterID} />
         </div>
       </section>
       <Flyout />
