@@ -1,4 +1,4 @@
-import { Link } from '@remix-run/react';
+import { Link, useSearchParams } from '@remix-run/react';
 import { type ReactNode } from 'react';
 import { type Character } from 'rickmortyapi';
 
@@ -7,11 +7,15 @@ import { ImageBlock } from '../image-block/ImageBlock';
 import styles from './styles.module.scss';
 
 export function CharacterCard({ character }: { character: Character }): ReactNode {
+  const [searchParams] = useSearchParams();
+  const page = Math.floor(Number(searchParams.get('page'))) || 1;
+  const search = searchParams.get('search') || '';
+
   return (
     <div className={styles.card}>
       <ImageBlock src={character.image} alt="Character" />
       <div className={styles.text_container}>
-        <Link to={`character/${character.id}`} className={styles.card_link}>
+        <Link to={`/character/${character.id}?page=${page}&search=${search}`} className={styles.card_link}>
           <h2 className={styles.card_title}>{character.name}</h2>
         </Link>
         <FavoriteButton character={character} />

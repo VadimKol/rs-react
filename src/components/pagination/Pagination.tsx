@@ -4,9 +4,11 @@ import { type ReactNode } from 'react';
 import styles from './styles.module.scss';
 import { type PaginationProps } from './types';
 
-export function Pagination({ page, total, setPage, handleClose }: PaginationProps): ReactNode {
-  const [, setPageQuery] = useSearchParams();
+export function Pagination({ total, handleClose }: PaginationProps): ReactNode {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const page = Math.floor(Number(searchParams.get('page'))) || 1;
+  const search = searchParams.get('search') || '';
 
   let paginationStyles = styles.pagination_box;
   if (!(page - 1)) {
@@ -20,9 +22,7 @@ export function Pagination({ page, total, setPage, handleClose }: PaginationProp
   }
 
   const handlePage = (newPage: number): void => {
-    setPage(newPage);
-    setPageQuery({ page: String(newPage) });
-    navigate('/', { replace: true });
+    navigate(`/?page=${newPage}&search=${search}`);
   };
 
   return (

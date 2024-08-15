@@ -1,16 +1,17 @@
 import './root.scss';
 
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from '@remix-run/react';
 import { type ReactNode } from 'react';
 import { Provider } from 'react-redux';
 
-import { ErrorBoundary } from '@/components/error-boundary/ErrorBoundary';
+import { ErrorPage } from '@/components/error/ErrorPage';
 import { Footer } from '@/components/footer/Footer';
 import { Header } from '@/components/header/Header';
+import { NoMatch } from '@/components/no-match/NoMatch';
 import { ThemeProvider } from '@/contexts/theme';
 import { store } from '@/store/store';
 
-export default function App(): ReactNode {
+export function Layout({ children }: { children: ReactNode }): ReactNode {
   return (
     <html lang="en">
       <head>
@@ -25,19 +26,35 @@ export default function App(): ReactNode {
       </head>
       <body className="body">
         <div id="root" className="root">
-          <ErrorBoundary>
-            <ThemeProvider>
-              <Provider store={store}>
-                <Header />
-                <Outlet />
-                <Footer />
-              </Provider>
-            </ThemeProvider>
-          </ErrorBoundary>
+          <ThemeProvider>
+            <Provider store={store}>
+              <Header />
+              {children}
+              <Footer />
+            </Provider>
+          </ThemeProvider>
         </div>
         <ScrollRestoration />
         <Scripts />
       </body>
     </html>
   );
+}
+
+export default function App(): ReactNode {
+  return <Outlet />;
+}
+
+export function ErrorBoundary(): ReactNode {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return <NoMatch />;
+  }
+
+  if (error instanceof Error) {
+    return <ErrorPage error={error} />;
+  }
+
+  return <ErrorPage error={new Error('Something went wrong')} />;
 }
