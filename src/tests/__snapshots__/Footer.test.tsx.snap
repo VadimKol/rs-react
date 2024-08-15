@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Footer Component > renders correctly 1`] = `
+<div>
+  <footer
+    class="_footer_d8a0cc"
+  >
+    <div
+      class="_container_d8a0cc _dark_rs_d8a0cc"
+    />
+  </footer>
+</div>
+`;

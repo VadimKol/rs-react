@@ -1,23 +1,23 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NoMatch Component renders correctly 1`] = `
+exports[`NoMatch or 404 page > renders correctly 1`] = `
 <div>
   <main
     class="main"
   >
     <img
       alt="404 error"
-      class="error_img"
+      class="_error_img_788af9"
       height="490"
-      src="stub-test"
+      src="/src/assets/images/404.png"
       width="490"
     />
     <div
-      class="buttons"
+      class="_buttons_788af9"
     >
       <button
         aria-label="Button"
-        class="button home"
+        class="_button_de8d5c _home_788af9"
         id=""
         type="button"
       >

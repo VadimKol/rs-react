@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Search Component > renders correctly 1`] = `
+<div>
+  <form
+    class="_search_form_5ff5ab"
+  >
+    <input
+      class="_search_5ff5ab"
+      id="search"
+      placeholder="Search..."
+      type="text"
+      value=""
+    />
+    <button
+      aria-label="Search-button"
+      class="_search_button_5ff5ab"
+      type="submit"
+    />
+  </form>
+</div>
+`;

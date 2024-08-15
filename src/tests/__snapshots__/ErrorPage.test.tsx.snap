@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Error page > renders correctly 1`] = `
+<div>
+  <main
+    class="main"
+  >
+    <div
+      class="_error_38939b"
+    >
+      <p
+        class="_name_38939b"
+      >
+        ERROR
+      </p>
+      <img
+        alt="Rick and Morty error"
+        class="_error_img_38939b"
+        height="500"
+        src="/src/assets/images/loader.png"
+        width="500"
+      />
+      <p
+        class="_desc_38939b"
+      >
+        Some error
+      </p>
+      <p
+        class="_desc_38939b"
+      >
+        Please refresh the page
+      </p>
+    </div>
+  </main>
+</div>
+`;

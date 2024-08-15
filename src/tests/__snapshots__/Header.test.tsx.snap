@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header Component > renders correctly 1`] = `
+<div>
+  <header
+    class="_header_039d8e"
+  >
+    <div
+      class="_container_039d8e"
+    />
+    <button
+      aria-label="Theme switcher"
+      class="_theme_039d8e _button_dark_039d8e"
+      type="button"
+    />
+  </header>
+</div>
+`;

@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2022: true, jest: true },
+  env: { browser: true, es2022: true },
   plugins: [
     '@typescript-eslint',
     'simple-import-sort',

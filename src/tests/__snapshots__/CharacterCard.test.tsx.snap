@@ -1,0 +1,48 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CharacterCard Component > renders correctly 1`] = `
+<div>
+  <div
+    class="_card_0086a2"
+  >
+    <div
+      class="_image_container_de2c00"
+    >
+      <div
+        class="_loader_d8e6ec"
+      />
+      <img
+        alt="Character"
+        class="_hidden_de2c00"
+        height="300"
+        src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+        width="300"
+      />
+    </div>
+    <div
+      class="_text_container_0086a2"
+    >
+      <a
+        class="_card_link_0086a2"
+        data-discover="true"
+        href="/character/1?page=1&search="
+      >
+        <h2
+          class="_card_title_0086a2"
+        >
+          Rick
+        </h2>
+      </a>
+      <button
+        aria-label="Add to favorites"
+        class="_favorite_99b3bf"
+        name="favorite"
+        type="button"
+        value="false"
+      >
+        ☆
+      </button>
+    </div>
+  </div>
+</div>
+`;

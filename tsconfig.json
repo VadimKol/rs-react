@@ -5,7 +5,7 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "preserve",
     "skipLibCheck": true,
-    "types": ["@testing-library/jest-dom","@testing-library/jest-dom/jest-globals"],
+    "types": ["vitest/globals"],
     "esModuleInterop": true,
     "moduleDetection": "force",
     "moduleResolution": "bundler",

@@ -1,0 +1,40 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Flyout component > renders correctly 1`] = `
+<div>
+  <div
+    class="_flyout_261b38"
+  >
+    <h3
+      class="_title_261b38"
+    >
+      2 items are selected
+    </h3>
+    <div
+      class="_buttons_261b38"
+    >
+      <button
+        aria-label="Button"
+        class="_button_de8d5c _button_261b38"
+        id=""
+        type="button"
+      >
+        Unselect all
+      </button>
+      <button
+        aria-label="Button"
+        class="_button_de8d5c _button_261b38"
+        id=""
+        type="button"
+      >
+        <a
+          class="_download_link_261b38"
+          download="2_characters.csv"
+        >
+          Download
+        </a>
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,15 +1,15 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Pagination Component renders correctly 1`] = `
+exports[`Pagination Component > renders correctly 1`] = `
 <div>
   <div
-    class="pagination"
+    class="_pagination_34bd36"
   >
     <div
-      class="pagination_box_before"
+      class="_pagination_box_before_34bd36"
     >
       <div
-        class="pages"
+        class="_pages_34bd36"
       >
         <span>
           1
@@ -21,7 +21,7 @@ exports[`Pagination Component renders correctly 1`] = `
       </div>
       <button
         aria-label="Right"
-        class="pag_right"
+        class="_pag_right_34bd36"
         type="button"
       />
     </div>

@@ -1,71 +1,78 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DetailedCard Component renders correctly 1`] = `
+exports[`DetailedCard Component > renders correctly 1`] = `
 <div>
   <section
-    class="detailed_Card"
+    class="_detailed_Card_efa844"
   >
     <div
-      class="card"
+      class="_card_efa844"
     >
       <div
-        class="image_container"
+        class="_image_container_de2c00"
       >
         <div
-          class="loader"
+          class="_loader_d8e6ec"
         />
         <img
           alt="Character"
-          class="character_img"
-          src=""
-          style="display: none;"
+          class="_hidden_de2c00"
+          height="300"
+          src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+          width="300"
         />
       </div>
       <div
-        class="text_container"
+        class="_text_container_efa844"
       >
         <h2
-          class="card_title"
+          class="_card_title_efa844"
         >
           Rick
         </h2>
         <ul
-          class="desc"
+          class="_desc_efa844"
         >
           <li
-            class="desc_item"
+            class="_desc_item_efa844"
           >
             Species: 
           </li>
           <li
-            class="desc_item"
+            class="_desc_item_efa844"
           >
             Gender: Male
           </li>
           <li
-            class="desc_item"
+            class="_desc_item_efa844"
           >
             Status: Alive
           </li>
           <li
-            class="desc_item"
+            class="_desc_item_efa844"
           >
             Origin: 
           </li>
           <li
-            class="desc_item"
+            class="_desc_item_efa844"
           >
             Location: 
           </li>
         </ul>
         <p
-          class="episodes"
+          class="_type_efa844"
+        >
+          Type: 
+          Human
+        </p>
+        <p
+          class="_episodes_efa844"
         >
           Episodes: 
         </p>
         <button
           aria-label="Add to favorites"
-          class="favorite"
+          class="_favorite_99b3bf"
           name="favorite"
           type="button"
           value="false"
@@ -76,7 +83,7 @@ exports[`DetailedCard Component renders correctly 1`] = `
     </div>
     <button
       aria-label="Button"
-      class="button close"
+      class="_button_de8d5c _close_efa844"
       id=""
       type="button"
     >
