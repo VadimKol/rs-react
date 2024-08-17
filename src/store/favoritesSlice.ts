@@ -23,10 +23,10 @@ export const { addToFavorites, removeFromFavorites, clearFavorites } = favorites
 
 const selectFavorites = (state: RootState): Character[] => state.favorites;
 
-const isFavorite = (state: RootState, character?: Character): boolean =>
-  state.favorites.some((favorite) => favorite.id === character?.id);
+const isFavorite = (state: RootState, character: Character): boolean =>
+  state.favorites.some((favorite) => favorite.id === character.id);
 
 export const useFavorites = (): Character[] => useSelector(selectFavorites);
 
-export const useIsFavorite = (character?: Character): boolean =>
+export const useIsFavorite = (character: Character): boolean =>
   useSelector((state: RootState) => isFavorite(state, character));

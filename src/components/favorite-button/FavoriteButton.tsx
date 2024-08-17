@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { type Character } from 'rickmortyapi';
 
@@ -6,9 +6,14 @@ import { addToFavorites, removeFromFavorites, useIsFavorite } from '@/store/favo
 
 import styles from './styles.module.scss';
 
-export function FavoriteButton({ character }: { character?: Character }): ReactNode {
+export function FavoriteButton({ character }: { character: Character }): ReactNode {
   const dispatch = useDispatch();
   const favorite = useIsFavorite(character);
+
+  const handleClick = useCallback(
+    () => (favorite ? dispatch(removeFromFavorites(character)) : dispatch(addToFavorites(character))),
+    [character, dispatch, favorite],
+  );
 
   return (
     <button
@@ -17,9 +22,7 @@ export function FavoriteButton({ character }: { character?: Character }): ReactN
       name="favorite"
       value={String(favorite)}
       aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
-      onClick={() =>
-        character && (favorite ? dispatch(removeFromFavorites(character)) : dispatch(addToFavorites(character)))
-      }
+      onClick={handleClick}
     >
       {favorite ? '★' : '☆'}
     </button>

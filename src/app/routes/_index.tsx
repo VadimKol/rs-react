@@ -1,11 +1,13 @@
 import { type LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { type ReactNode } from 'react';
-import { type Character, getCharacters } from 'rickmortyapi';
+import { getCharacters } from 'rickmortyapi';
 
+import { type CharactersData } from '@/common/types';
+import { parseCharactersData } from '@/common/utils';
 import { Main } from '@/components/main/Main';
 
-export const loader = async ({ request }: LoaderFunctionArgs): Promise<{ characters: Character[]; total: number }> => {
+export const loader = async ({ request }: LoaderFunctionArgs): Promise<CharactersData> => {
   const url = new URL(request.url);
   const page = url.searchParams.get('page');
   const search = url.searchParams.get('search');
@@ -15,17 +17,7 @@ export const loader = async ({ request }: LoaderFunctionArgs): Promise<{ charact
     name: String(search || ''),
   });
 
-  let charactersData: { characters: Character[]; total: number };
-
-  if (status === 200) {
-    charactersData = { characters: data.results || [], total: data.info?.pages || 0 };
-  } else if (status === 404) {
-    charactersData = { characters: [], total: 0 };
-  } else {
-    throw new Error(statusMessage);
-  }
-
-  return charactersData;
+  return parseCharactersData(data, status, statusMessage);
 };
 
 export default function Page(): ReactNode {

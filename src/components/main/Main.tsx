@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useNavigation, useSearchParams } from '@remix-run/react';
 import { type MouseEventHandler, type ReactNode, useEffect } from 'react';
-import { type Character } from 'rickmortyapi';
 
+import { type CharactersData } from '@/common/types';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -14,7 +14,7 @@ export function Main({
   charactersData: { characters, total },
   children,
 }: {
-  charactersData: { characters: Character[]; total: number };
+  charactersData: CharactersData;
   children?: ReactNode;
 }): ReactNode {
   const [searchParams] = useSearchParams();
@@ -35,11 +35,6 @@ export function Main({
       navigate(`/?page=${page}&search=${ls}`, { replace: true });
     }
   }, [search, setLs, ls, navigate, page]);
-
-  if (characterID !== '/' && (/\D/.test(characterID) || characterID.startsWith('0'))) {
-    navigate('*', { replace: true });
-    return null;
-  }
 
   const handleClose: MouseEventHandler = (e) => {
     if (e.target === e.currentTarget && characterID !== '/') {

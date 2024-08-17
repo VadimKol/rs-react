@@ -52,9 +52,5 @@ export function ErrorBoundary(): ReactNode {
     return <NoMatch />;
   }
 
-  if (error instanceof Error) {
-    return <ErrorPage error={error} />;
-  }
-
-  return <ErrorPage error={new Error('Something went wrong')} />;
+  return <ErrorPage error={error instanceof Error ? error : new Error('Something went wrong')} />;
 }

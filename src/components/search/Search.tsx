@@ -1,25 +1,14 @@
-import { useNavigate, useSearchParams } from '@remix-run/react';
-import { type ReactNode, useRef } from 'react';
+import { type ReactNode } from 'react';
+
+import { useSearch } from '@/hooks/useSearch';
 
 import styles from './styles.module.scss';
-import type { SearchProps } from './types';
 
-export function Search({ loader }: SearchProps): ReactNode {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const searchField = useRef<HTMLInputElement>(null);
+export function Search({ loader }: { loader: boolean }): ReactNode {
+  const { searchParams, searchField, handleSubmit } = useSearch(loader);
 
   return (
-    <form
-      className={styles.search_form}
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (typeof searchField.current?.value === 'string' && !loader) {
-          const searchValue = searchField.current?.value.trim();
-          navigate(`/?page=1&search=${searchValue}`);
-        }
-      }}
-    >
+    <form className={styles.search_form} onSubmit={handleSubmit}>
       <input
         id="search"
         className={styles.search}
