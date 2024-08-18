@@ -1,0 +1,38 @@
+.results {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 20px;
+}
+
+.results_box {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.character {
+  display: flex;
+  flex-grow: 1;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.loader {
+  flex-grow: 1;
+  width: 100%;
+  background-image: url("/src/assets/images/loader.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: loader 1s infinite linear;
+}
+
+@keyframes loader {
+  to {
+    transform: rotate(1turn);
+  }
+}

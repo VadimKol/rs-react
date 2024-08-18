@@ -1,0 +1,47 @@
+.button {
+  position: relative;
+  padding: 0.5em 1.2em;
+  font-family: var(--primary-font);
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--text-color);
+  background:
+    linear-gradient(45deg, var(--primary-color), var(--secondary-color)) padding-box,
+    linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+  border: none;
+  border-radius: 6px;
+  user-select: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-radius: inherit;
+    filter: blur(0);
+    pointer-events: none;
+    transition: all 0.5s;
+    transform: translate3d(0, 0, -1px);
+  }
+
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+
+      &::before {
+        filter: blur(5px);
+      }
+    }
+  }
+}
