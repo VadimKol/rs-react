@@ -39,5 +39,6 @@ export default {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   collectCoverage: true,
+  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!jest.config.ts', '!vite.config.ts', '!**/*.d.ts'],
   coverageReporters: ['text', 'text-summary'],
 };
