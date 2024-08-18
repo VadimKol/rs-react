@@ -14,12 +14,7 @@ export function NoMatch(): ReactNode {
     <main className={theme === 'dark' ? 'main' : 'main light'}>
       <img className={styles.error_img} src={error_img} alt="404 error" width={490} height={490} />
       <div className={styles.buttons}>
-        <CustomButton
-          className={styles.home}
-          onClick={() => {
-            navigate('/');
-          }}
-        >
+        <CustomButton className={styles.home} onClick={() => navigate('/')}>
           Home page
         </CustomButton>
       </div>
