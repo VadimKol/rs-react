@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ValidationError } from 'yup';
 
-import { countries } from '@/common/countries';
 import { convertToBase64, getPasswordStrength } from '@/common/utils';
 import { CustomButton } from '@/components/custom-button/СustomButton';
-import { updateForm } from '@/store/formSLice';
+import { useCountries } from '@/store/countriesSlice';
+import { updateForm, useFormInfo } from '@/store/formSLice';
 
 import { formSchema } from './schema';
 import styles from './styles.module.scss';
@@ -15,6 +15,7 @@ import styles from './styles.module.scss';
 export function Uncontrolled(): ReactNode {
   const theme = 'dark';
   const navigate = useNavigate();
+  const countries = useCountries();
   const [errors, setErrors] = useState<Record<string, string | null>>({
     name: null,
     age: null,
@@ -28,6 +29,7 @@ export function Uncontrolled(): ReactNode {
     strength: '2',
   });
   const dispatch = useDispatch();
+  const formInfo = useFormInfo();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -68,7 +70,7 @@ export function Uncontrolled(): ReactNode {
               name: String(data.name),
               age: Number(data.age),
               email: String(data.email),
-              password: '*'.repeat(String(data.password).length),
+              password: String(data.password),
               confirmPassword: true,
               gender: String(data.gender),
               country: String(data.country),
@@ -105,22 +107,50 @@ export function Uncontrolled(): ReactNode {
       <form className={styles.uncontrolled} onSubmit={handleSubmit}>
         <label htmlFor="name" className={styles.label}>
           Name*
-          <input id="name" name="name" type="text" placeholder="Enter Name" className={styles.input} />
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Enter Name"
+            className={styles.input}
+            defaultValue={formInfo.name || ''}
+          />
         </label>
         {errors.name && <p className={styles.error}>{errors.name}</p>}
         <label htmlFor="age" className={styles.label}>
           Age*
-          <input id="age" name="age" type="number" placeholder="Enter Age" className={styles.input} />
+          <input
+            id="age"
+            name="age"
+            type="number"
+            placeholder="Enter Age"
+            className={styles.input}
+            defaultValue={formInfo.age || ''}
+          />
         </label>
         {errors.age && <p className={styles.error}>{errors.age}</p>}
         <label htmlFor="email" className={styles.label}>
           Email*
-          <input id="email" name="email" type="text" placeholder="Enter Email" className={styles.input} />
+          <input
+            id="email"
+            name="email"
+            type="text"
+            placeholder="Enter Email"
+            className={styles.input}
+            defaultValue={formInfo.email || ''}
+          />
         </label>
         {errors.email && <p className={styles.error}>{errors.email}</p>}
         <label htmlFor="password" className={styles.label}>
           Password*
-          <input id="password" name="password" type="password" placeholder="Enter Password" className={styles.input} />
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Enter Password"
+            className={styles.input}
+            defaultValue={formInfo.password || ''}
+          />
         </label>
         <p className={styles.strength}>Password strength: {getPasswordStrength(errors.strength || '2')}</p>
         {errors.password && <p className={styles.error}>{errors.password}</p>}
@@ -132,6 +162,7 @@ export function Uncontrolled(): ReactNode {
             type="password"
             placeholder="Confirm Password"
             className={styles.input}
+            defaultValue={formInfo.password || ''}
           />
         </label>
         {errors.confirmPassword && <p className={styles.error}>{errors.confirmPassword}</p>}
@@ -140,11 +171,25 @@ export function Uncontrolled(): ReactNode {
           <div className={styles.gender}>
             <label htmlFor="male" className={styles.gender_label}>
               Male
-              <input id="male" type="radio" className={styles.radio} name="gender" value="male" />
+              <input
+                id="male"
+                type="radio"
+                className={styles.radio}
+                name="gender"
+                value="male"
+                defaultChecked={formInfo.gender === 'male'}
+              />
             </label>
             <label htmlFor="female" className={styles.gender_label}>
               Female
-              <input id="female" type="radio" className={styles.radio} name="gender" value="female" />
+              <input
+                id="female"
+                type="radio"
+                className={styles.radio}
+                name="gender"
+                value="female"
+                defaultChecked={formInfo.gender === 'female'}
+              />
             </label>
           </div>
         </fieldset>
@@ -157,6 +202,7 @@ export function Uncontrolled(): ReactNode {
             list="countries"
             placeholder="Enter country"
             className={classNames(styles.input, styles.country)}
+            defaultValue={formInfo.country || ''}
           />
           <datalist id="countries">
             {countries.map((country) => (
@@ -172,7 +218,7 @@ export function Uncontrolled(): ReactNode {
         {errors.image && <p className={styles.error}>{errors.image}</p>}
         <label htmlFor="tc" className={styles.tc}>
           I have read and agreed to the Terms and Conditions*
-          <input id="tc" name="tc" type="checkbox" className={styles.tc_input} />
+          <input id="tc" name="tc" type="checkbox" className={styles.tc_input} defaultChecked={Boolean(formInfo.tc)} />
         </label>
         {errors.tc && <p className={styles.error}>{errors.tc}</p>}
         <div className={styles.buttons}>

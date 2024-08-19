@@ -1,7 +1,8 @@
 import { boolean, mixed, number, object, ref, string } from 'yup';
 
-import { countries } from '@/common/countries';
 import { FILE_SIZE, SUPPORTED_FORMATS } from '@/common/utils';
+import { selectCountries } from '@/store/countriesSlice';
+import { store } from '@/store/store';
 
 export const formSchema = object({
   name: string().matches(
@@ -26,7 +27,7 @@ export const formSchema = object({
   gender: string().required('You must select gender'),
   country: string().test('Country', 'You must select country', (val) => {
     if (val) {
-      return countries.some((country) => country === val);
+      return selectCountries(store.getState()).some((country) => country === val);
     }
     return false;
   }),
@@ -37,17 +38,11 @@ export const formSchema = object({
       if (value instanceof File) {
         return value.size <= FILE_SIZE;
       }
-      if (value instanceof FileList) {
-        return (value.item(0)?.size || 0) <= FILE_SIZE;
-      }
       return false;
     })
     .test('Format', 'Unsupported file format', (value) => {
       if (value instanceof File) {
         return SUPPORTED_FORMATS.includes(value.type);
-      }
-      if (value instanceof FileList) {
-        return SUPPORTED_FORMATS.includes(value.item(0)?.type || '');
       }
       return false;
     }),
