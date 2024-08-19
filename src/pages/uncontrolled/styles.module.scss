@@ -26,6 +26,10 @@
     transition: all 0.3s;
     transform: translate3d(0, 0, -1px);
   }
+
+  @media screen and (width <= 700px) {
+    width: 100%;
+  }
 }
 
 .title {

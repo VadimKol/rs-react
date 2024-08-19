@@ -26,6 +26,10 @@
     transition: all 0.3s;
     transform: translate3d(0, 0, -1px);
   }
+
+  @media screen and (width <= 700px) {
+    width: 100%;
+  }
 }
 
 .title {
@@ -130,6 +134,11 @@
   position: absolute;
   bottom: 0.38rem;
   left: 6.25rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .country {
@@ -186,3 +195,13 @@
     }
   }
 }
+
+.error {
+  margin: 0;
+  color: var(--error-color);
+}
+
+.strength {
+  margin: 0;
+}
+

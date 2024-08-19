@@ -26,17 +26,22 @@
     transform: translate3d(0, 0, -1px);
   }
 
+  &:disabled {
+    background-color: var(--disabled-color);
+    background-image: none;
+  }
 
-  &:focus-visible {
+
+  &:focus-visible:not(:disabled) {
     outline: 2px solid var(--primary-color);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: scale(0.9);
   }
 
   @media (hover: hover) {
-    &:hover {
+    &:hover:not(:disabled) {
       cursor: pointer;
 
       &::before {

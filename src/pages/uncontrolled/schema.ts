@@ -1,9 +1,7 @@
 import { boolean, mixed, number, object, ref, string } from 'yup';
 
-import { countries } from './countries';
-
-const FILE_SIZE = 1024 * 1024 * 2;
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+import { countries } from '@/common/countries';
+import { FILE_SIZE, SUPPORTED_FORMATS } from '@/common/utils';
 
 export const formSchema = object({
   name: string().matches(
@@ -39,11 +37,17 @@ export const formSchema = object({
       if (value instanceof File) {
         return value.size <= FILE_SIZE;
       }
+      if (value instanceof FileList) {
+        return (value.item(0)?.size || 0) <= FILE_SIZE;
+      }
       return false;
     })
     .test('Format', 'Unsupported file format', (value) => {
       if (value instanceof File) {
         return SUPPORTED_FORMATS.includes(value.type);
+      }
+      if (value instanceof FileList) {
+        return SUPPORTED_FORMATS.includes(value.item(0)?.type || '');
       }
       return false;
     }),

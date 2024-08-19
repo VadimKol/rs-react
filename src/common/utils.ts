@@ -1,3 +1,6 @@
+export const FILE_SIZE = 1024 * 1024 * 2;
+export const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+
 export const convertToBase64 = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();

@@ -5,11 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ValidationError } from 'yup';
 
 import { countries } from '@/common/countries';
-import { formSchema } from '@/common/schema';
 import { convertToBase64, getPasswordStrength } from '@/common/utils';
 import { CustomButton } from '@/components/custom-button/СustomButton';
 import { updateForm } from '@/store/formSLice';
 
+import { formSchema } from './schema';
 import styles from './styles.module.scss';
 
 export function Uncontrolled(): ReactNode {

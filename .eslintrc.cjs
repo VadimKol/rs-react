@@ -32,6 +32,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    'react/jsx-props-no-spreading': ['error', { exceptions: ['input'] }],
     'react-compiler/react-compiler': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react/prefer-stateless-function': 'off',
