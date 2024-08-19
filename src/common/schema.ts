@@ -33,33 +33,18 @@ export const formSchema = object({
     return false;
   }),
   tc: boolean().oneOf([true], 'You must accept the terms and conditions'),
-  image: object().shape({
-    file: mixed()
-      .required('An image is required')
-      .test('Size', 'File is too large', (value) => {
-        if (value instanceof File) {
-          return value.size <= FILE_SIZE;
-        }
-        return false;
-      })
-      .test('Format', 'Unsupported file format', (value) => {
-        if (value instanceof File) {
-          return SUPPORTED_FORMATS.includes(value.type);
-        }
-        return false;
-      }),
-  }),
+  image: mixed()
+    .required('An image is required')
+    .test('Size', 'File is too large', (value) => {
+      if (value instanceof File) {
+        return value.size <= FILE_SIZE;
+      }
+      return false;
+    })
+    .test('Format', 'Unsupported file format', (value) => {
+      if (value instanceof File) {
+        return SUPPORTED_FORMATS.includes(value.type);
+      }
+      return false;
+    }),
 });
-
-// parse and assert validity
-// let user = await userSchema.validate(await fetchUser());
-
-// type User = InferType<typeof userSchema>;
-
-/* {
-  name: string;
-  age: number;
-  email?: string | undefined
-  website?: string | null | undefined
-  createdOn: Date
-} */
