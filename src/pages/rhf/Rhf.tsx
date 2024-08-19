@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { type FormEvent, type ReactNode, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { ValidationError } from 'yup';
 
 import { countries } from '@/common/countries';
@@ -40,7 +41,10 @@ export function Rhf(): ReactNode {
 
   return (
     <main className={theme === 'dark' ? 'main' : 'main light'}>
-      <h2 className={styles.title}>Uncontrolled Form</h2>
+      <Link className={styles.back} to="/">
+        Main
+      </Link>
+      <h2 className={styles.title}>React hook form</h2>
       <form className={styles.uncontrolled} onSubmit={handleSubmit}>
         <label htmlFor="name" className={styles.label}>
           Name*

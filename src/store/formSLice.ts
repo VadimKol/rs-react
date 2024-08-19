@@ -5,7 +5,7 @@ import { type FormInfo } from '@/common/types';
 
 import { type RootState } from './store';
 
-const initialState: FormInfo = {
+export const initialState: FormInfo = {
   name: null,
   age: null,
   email: null,
@@ -15,6 +15,7 @@ const initialState: FormInfo = {
   country: null,
   tc: null,
   image: null,
+  strength: '0',
 };
 
 export const formSLice = createSlice({

@@ -3,9 +3,10 @@ export interface FormInfo {
   age: null | number;
   email: null | string;
   password: null | string;
-  confirmPassword: null | string;
+  confirmPassword: null | boolean;
   gender: null | string;
   country: null | string;
   tc: null | boolean;
   image: null | string;
+  strength: string;
 }

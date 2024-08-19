@@ -6,7 +6,7 @@ import { ValidationError } from 'yup';
 
 import { countries } from '@/common/countries';
 import { formSchema } from '@/common/schema';
-import { convertToBase64 } from '@/common/utils';
+import { convertToBase64, getPasswordStrength } from '@/common/utils';
 import { CustomButton } from '@/components/custom-button/СustomButton';
 import { updateForm } from '@/store/formSLice';
 
@@ -25,6 +25,7 @@ export function Uncontrolled(): ReactNode {
     country: null,
     tc: null,
     image: null,
+    strength: '2',
   });
   const dispatch = useDispatch();
 
@@ -54,6 +55,7 @@ export function Uncontrolled(): ReactNode {
       country: null,
       tc: null,
       image: null,
+      strength: '0',
     };
 
     try {
@@ -66,15 +68,16 @@ export function Uncontrolled(): ReactNode {
               name: String(data.name),
               age: Number(data.age),
               email: String(data.email),
-              password: String(data.password),
-              confirmPassword: String(data.confirmPassword),
+              password: '*'.repeat(String(data.password).length),
+              confirmPassword: true,
               gender: String(data.gender),
               country: String(data.country),
               tc: data.tc,
               image: base64Image,
+              strength: '0',
             }),
           );
-          navigate('/');
+          navigate('/', { state: true });
         })
         .catch(() => {});
     } catch (err) {
@@ -82,6 +85,9 @@ export function Uncontrolled(): ReactNode {
         err.inner.forEach(({ path, message }) => {
           if (path) {
             errorsNew[path] = message;
+          }
+          if (path === 'password') {
+            errorsNew.strength = String(Number(errorsNew.strength) + 1);
           }
         });
       }
@@ -116,6 +122,7 @@ export function Uncontrolled(): ReactNode {
           Password*
           <input id="password" name="password" type="password" placeholder="Enter Password" className={styles.input} />
         </label>
+        <p className={styles.strength}>Password strength: {getPasswordStrength(errors.strength || '2')}</p>
         {errors.password && <p className={styles.error}>{errors.password}</p>}
         <label htmlFor="confirmPassword" className={styles.label}>
           Confirm Password*

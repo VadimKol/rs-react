@@ -1,6 +1,7 @@
 import { type ReactNode, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
+import { getPasswordStrength } from '@/common/utils';
 import { ImageBlock } from '@/components/image-block/ImageBlock';
 import { Loader } from '@/components/loader/Loader';
 import { useFormInfo } from '@/store/formSLice';
@@ -9,14 +10,15 @@ import styles from './styles.module.scss';
 
 export function Main(): ReactNode {
   const theme = 'dark';
-  const { name, age, email, password, gender, country, image } = useFormInfo();
+  const { name, age, email, password, gender, country, image, strength } = useFormInfo();
   const [loader, setLoader] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    if (name) {
+    if (location.state) {
       setLoader(true);
     }
-  }, [name]);
+  }, [location.state]);
 
   useEffect(() => {
     if (loader) {
@@ -34,6 +36,7 @@ export function Main(): ReactNode {
         <p className={styles.text}>Age: {age}</p>
         <p className={styles.text}>Email: {email}</p>
         <p className={styles.text}>Password: {'*'.repeat(password?.length || 0)}</p>
+        <p className={styles.text}>Password strength: {getPasswordStrength(strength)}</p>
         <p className={styles.text}>Gender: {gender}</p>
         <p className={styles.text}>Country: {country}</p>
         <ImageBlock src={image || ''} alt="Form data" />
