@@ -1,0 +1,201 @@
+.uncontrolled {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 0.63rem;
+  width: 37.5rem;
+  height: 100%;
+  padding: 1.25rem;
+  color: var(--background-color);
+  background:
+    linear-gradient(var(--text-color) 0 0) padding-box,
+    linear-gradient(to top, var(--primary-color), var(--secondary-color)) border-box;
+  border: 5px solid transparent;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
+    border-radius: inherit;
+    filter: blur(10px);
+    pointer-events: none;
+    transition: all 0.3s;
+    transform: translate3d(0, 0, -1px);
+  }
+
+  @media screen and (width <= 700px) {
+    width: 100%;
+  }
+}
+
+.title {
+  color: var(--background-color);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.31rem;
+}
+
+.input {
+  padding: 3px;
+  font-size: 1rem;
+  border: 2px solid transparent;
+  border-radius: 6px;
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+  }
+}
+
+.gender {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+
+  &_label,
+  & .radio {
+    @media (hover: hover) {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.tc,
+.tc_input {
+  width: fit-content;
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.submit {
+  width: 9.38rem;
+  font-size: 1rem;
+}
+
+.upload {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.31rem;
+  align-items: flex-start;
+  pointer-events: none;
+  user-select: none;
+
+  &::after {
+    content: "Upload";
+    display: block;
+    padding: 0.5em 1.2em;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 6px;
+    pointer-events: initial;
+    user-select: initial;
+    transition: transform 0.3s;
+  }
+
+  &:focus-visible::after {
+    outline: 2px solid var(--primary-color);
+  }
+
+  &:active::after {
+    transform: scale(0.9);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.loaded {
+  position: absolute;
+  bottom: 0.38rem;
+  left: 6.25rem;
+}
+
+.country {
+  align-self: flex-start;
+}
+
+.file {
+  display: none;
+}
+
+.error {
+  margin: 0;
+  color: var(--error-color);
+}
+
+.back {
+  position: relative;
+  padding: 0.5em 1.2em;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--text-color);
+  background:
+    linear-gradient(45deg, var(--primary-color), var(--secondary-color)) padding-box,
+    linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+  border: none;
+  border-radius: 6px;
+  user-select: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-radius: inherit;
+    filter: blur(0);
+    pointer-events: none;
+    transition: all 0.5s;
+    transform: translate3d(0, 0, -1px);
+  }
+
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+
+      &::before {
+        filter: blur(5px);
+      }
+    }
+  }
+}
+
+.strength {
+  margin: 0;
+}

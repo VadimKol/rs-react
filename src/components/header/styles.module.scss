@@ -1,0 +1,18 @@
+.header {
+  width: 100%;
+  background-image: linear-gradient(to top, var(--gray), var(--text-color));
+}
+
+.container {
+  align-content: center;
+  height: 160px;
+  margin: auto;
+  font-size: 3rem;
+  text-align: center;
+  color: var(--background-color);
+
+
+  @media screen and (width <= 340px) {
+    width: 100%;
+  }
+}
