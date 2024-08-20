@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { convertToBase64, getPasswordStrength } from '@/common/utils';
 import { CustomButton } from '@/components/custom-button/СustomButton';
 import { useCountries } from '@/store/countriesSlice';
-import { updateFormRhf, useFormRhfInfo } from '@/store/formRhfSlice';
+import { updateForm } from '@/store/formSLice';
 
 import { type FormSchemaRhf, formSchemaRhf } from './schema';
 import styles from './styles.module.scss';
@@ -18,7 +18,6 @@ export function Rhf(): ReactNode {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const countries = useCountries();
-  const formInfo = useFormRhfInfo();
   const {
     register,
     watch,
@@ -47,7 +46,7 @@ export function Rhf(): ReactNode {
       convertToBase64(imageFile)
         .then((base64Image) => {
           dispatch(
-            updateFormRhf({
+            updateForm({
               name: String(data.name),
               age: Number(data.age),
               email: String(data.email),
@@ -80,38 +79,17 @@ export function Rhf(): ReactNode {
       >
         <label htmlFor="name" className={styles.label}>
           Name*
-          <input
-            id="name"
-            type="text"
-            placeholder="Enter Name"
-            className={styles.input}
-            {...register('name')}
-            defaultValue={formInfo.name || ''}
-          />
+          <input id="name" type="text" placeholder="Enter Name" className={styles.input} {...register('name')} />
         </label>
         {errors.name && <p className={styles.error}>{errors.name.message}</p>}
         <label htmlFor="age" className={styles.label}>
           Age*
-          <input
-            id="age"
-            type="number"
-            placeholder="Enter Age"
-            className={styles.input}
-            {...register('age')}
-            defaultValue={formInfo.age || ''}
-          />
+          <input id="age" type="number" placeholder="Enter Age" className={styles.input} {...register('age')} />
         </label>
         {errors.age && <p className={styles.error}>{errors.age.message}</p>}
         <label htmlFor="email" className={styles.label}>
           Email*
-          <input
-            id="email"
-            type="text"
-            placeholder="Enter Email"
-            className={styles.input}
-            {...register('email')}
-            defaultValue={formInfo.email || ''}
-          />
+          <input id="email" type="text" placeholder="Enter Email" className={styles.input} {...register('email')} />
         </label>
         {errors.email && <p className={styles.error}>{errors.email.message}</p>}
         <label htmlFor="password" className={styles.label}>
@@ -122,7 +100,6 @@ export function Rhf(): ReactNode {
             placeholder="Enter Password"
             className={styles.input}
             {...register('password')}
-            defaultValue={formInfo.password || ''}
           />
         </label>
         {errors.password && <p className={styles.error}>{errors.password.message?.split(',')[0]}</p>}
@@ -135,7 +112,6 @@ export function Rhf(): ReactNode {
             placeholder="Confirm Password"
             className={styles.input}
             {...register('confirmPassword')}
-            defaultValue={formInfo.password || ''}
           />
         </label>
         {errors.confirmPassword && <p className={styles.error}>{errors.confirmPassword.message}</p>}
@@ -150,19 +126,12 @@ export function Rhf(): ReactNode {
                 className={styles.radio}
                 value="male"
                 {...register('gender')}
-                defaultChecked={formInfo.gender !== 'female'}
+                defaultChecked
               />
             </label>
             <label htmlFor="female" className={styles.gender_label}>
               Female
-              <input
-                id="female"
-                type="radio"
-                className={styles.radio}
-                value="female"
-                {...register('gender')}
-                defaultChecked={formInfo.gender === 'female'}
-              />
+              <input id="female" type="radio" className={styles.radio} value="female" {...register('gender')} />
             </label>
           </div>
         </fieldset>
@@ -175,7 +144,7 @@ export function Rhf(): ReactNode {
             placeholder="Enter country"
             className={classNames(styles.input, styles.country)}
             {...register('country')}
-            defaultValue={formInfo.country || ''}
+            autoComplete="off"
           />
           <datalist id="countries">
             {countries.map((country) => (
@@ -192,13 +161,7 @@ export function Rhf(): ReactNode {
         {errors.image && <p className={styles.error}>{errors.image.message}</p>}
         <label htmlFor="tc" className={styles.tc}>
           I have read and agreed to the Terms and Conditions*
-          <input
-            id="tc"
-            type="checkbox"
-            className={styles.tc_input}
-            {...register('tc')}
-            defaultChecked={Boolean(formInfo.tc)}
-          />
+          <input id="tc" type="checkbox" className={styles.tc_input} {...register('tc')} />
         </label>
         {errors.tc && <p className={styles.error}>{errors.tc.message}</p>}
         <div className={styles.buttons}>

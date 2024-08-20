@@ -5,29 +5,20 @@ import { type FormInfo } from '@/common/types';
 
 import { type RootState } from './store';
 
-export const initialState: FormInfo = {
-  name: null,
-  age: null,
-  email: null,
-  password: null,
-  confirmPassword: null,
-  gender: null,
-  country: null,
-  tc: null,
-  image: null,
-  strength: '0',
-};
+export const initialState: FormInfo[] = [];
 
 export const formSLice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    updateForm: (_, action: PayloadAction<FormInfo>) => action.payload,
+    updateForm: (state, action: PayloadAction<FormInfo>) => {
+      state.push(action.payload);
+    },
   },
 });
 
 export const { updateForm } = formSLice.actions;
 
-const selectFormInfo = (state: RootState): FormInfo => state.form;
+const selectFormInfo = (state: RootState): FormInfo[] => state.form;
 
-export const useFormInfo = (): FormInfo => useSelector(selectFormInfo);
+export const useFormInfo = (): FormInfo[] => useSelector(selectFormInfo);

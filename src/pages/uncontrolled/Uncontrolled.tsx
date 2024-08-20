@@ -7,7 +7,7 @@ import { ValidationError } from 'yup';
 import { convertToBase64, getPasswordStrength } from '@/common/utils';
 import { CustomButton } from '@/components/custom-button/СustomButton';
 import { useCountries } from '@/store/countriesSlice';
-import { updateForm, useFormInfo } from '@/store/formSLice';
+import { updateForm } from '@/store/formSLice';
 
 import { formSchema } from './schema';
 import styles from './styles.module.scss';
@@ -29,7 +29,6 @@ export function Uncontrolled(): ReactNode {
     strength: '2',
   });
   const dispatch = useDispatch();
-  const formInfo = useFormInfo();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -37,7 +36,7 @@ export function Uncontrolled(): ReactNode {
 
     const data = {
       name: formData.get('name'),
-      age: formData.get('age'),
+      age: Number(formData.get('age')),
       email: formData.get('email'),
       password: formData.get('password'),
       confirmPassword: formData.get('confirmPassword'),
@@ -107,50 +106,22 @@ export function Uncontrolled(): ReactNode {
       <form className={styles.uncontrolled} onSubmit={handleSubmit}>
         <label htmlFor="name" className={styles.label}>
           Name*
-          <input
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Enter Name"
-            className={styles.input}
-            defaultValue={formInfo.name || ''}
-          />
+          <input id="name" name="name" type="text" placeholder="Enter Name" className={styles.input} />
         </label>
         {errors.name && <p className={styles.error}>{errors.name}</p>}
         <label htmlFor="age" className={styles.label}>
           Age*
-          <input
-            id="age"
-            name="age"
-            type="number"
-            placeholder="Enter Age"
-            className={styles.input}
-            defaultValue={formInfo.age || ''}
-          />
+          <input id="age" name="age" type="number" placeholder="Enter Age" className={styles.input} />
         </label>
         {errors.age && <p className={styles.error}>{errors.age}</p>}
         <label htmlFor="email" className={styles.label}>
           Email*
-          <input
-            id="email"
-            name="email"
-            type="text"
-            placeholder="Enter Email"
-            className={styles.input}
-            defaultValue={formInfo.email || ''}
-          />
+          <input id="email" name="email" type="text" placeholder="Enter Email" className={styles.input} />
         </label>
         {errors.email && <p className={styles.error}>{errors.email}</p>}
         <label htmlFor="password" className={styles.label}>
           Password*
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Enter Password"
-            className={styles.input}
-            defaultValue={formInfo.password || ''}
-          />
+          <input id="password" name="password" type="password" placeholder="Enter Password" className={styles.input} />
         </label>
         <p className={styles.strength}>Password strength: {getPasswordStrength(errors.strength || '2')}</p>
         {errors.password && <p className={styles.error}>{errors.password}</p>}
@@ -162,7 +133,6 @@ export function Uncontrolled(): ReactNode {
             type="password"
             placeholder="Confirm Password"
             className={styles.input}
-            defaultValue={formInfo.password || ''}
           />
         </label>
         {errors.confirmPassword && <p className={styles.error}>{errors.confirmPassword}</p>}
@@ -171,25 +141,11 @@ export function Uncontrolled(): ReactNode {
           <div className={styles.gender}>
             <label htmlFor="male" className={styles.gender_label}>
               Male
-              <input
-                id="male"
-                type="radio"
-                className={styles.radio}
-                name="gender"
-                value="male"
-                defaultChecked={formInfo.gender === 'male'}
-              />
+              <input id="male" type="radio" className={styles.radio} name="gender" value="male" />
             </label>
             <label htmlFor="female" className={styles.gender_label}>
               Female
-              <input
-                id="female"
-                type="radio"
-                className={styles.radio}
-                name="gender"
-                value="female"
-                defaultChecked={formInfo.gender === 'female'}
-              />
+              <input id="female" type="radio" className={styles.radio} name="gender" value="female" />
             </label>
           </div>
         </fieldset>
@@ -202,7 +158,7 @@ export function Uncontrolled(): ReactNode {
             list="countries"
             placeholder="Enter country"
             className={classNames(styles.input, styles.country)}
-            defaultValue={formInfo.country || ''}
+            autoComplete="off"
           />
           <datalist id="countries">
             {countries.map((country) => (
@@ -218,7 +174,7 @@ export function Uncontrolled(): ReactNode {
         {errors.image && <p className={styles.error}>{errors.image}</p>}
         <label htmlFor="tc" className={styles.tc}>
           I have read and agreed to the Terms and Conditions*
-          <input id="tc" name="tc" type="checkbox" className={styles.tc_input} defaultChecked={Boolean(formInfo.tc)} />
+          <input id="tc" name="tc" type="checkbox" className={styles.tc_input} />
         </label>
         {errors.tc && <p className={styles.error}>{errors.tc}</p>}
         <div className={styles.buttons}>
